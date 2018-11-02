@@ -9,6 +9,7 @@ enum ErrorCodes {
     EC_EXEC,     // Failed to exec
     EC_PIPE,     // Error related to pipes
     EC_MEM,      // Failed to allocate memory
+    EC_INVALID,  // Invalid file format
     EC_UNKNOWN   // An unexpected error
 };
 

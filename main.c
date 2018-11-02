@@ -3,9 +3,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
+#include <sys/stat.h>
 #include <unistd.h>
 #include <getopt.h>
 #include "common/util.h"
+#include "types.h"
 
 int main(int argc, char *argv[]) {
     const char argErrorMsg[] = "Invalid arguments. Please run \"$ ./myfind -h Height -d Datafile -p Pattern [-s]\"\n";
@@ -52,10 +54,20 @@ int main(int argc, char *argv[]) {
         return EC_ARG;
     }
 
-    if ( access(datafile, R_OK) == -1 ) {
-        fprintf(stderr, "Cannot read from '%s'\n", datafile);
+    struct stat st;
+    if (stat(datafile, &st) != 0) {     // file may not exist, be inaccessible, etc
+        perror("stat");
         free(datafile); free(pattern);
         return EC_FILE;
+    }
+    if (st.st_size == 0) {
+        fprintf(stderr, "Warning: Datafile is empty.\n");
+    }
+    int recordsNum = (int) (st.st_size / sizeof(Record));
+    // Check if not whole division - recordsNum wouldn't have been an integer:
+    if (recordsNum != (st.st_size / (double) sizeof(Record))) {
+        fprintf(stderr, "Invalid Datafile format: Datafile's size is not a multiple of Record's size.");
+        return EC_INVALID;
     }
 
     // TODO create pipe
@@ -65,7 +77,7 @@ int main(int argc, char *argv[]) {
         free(datafile); free(pattern);
         return EC_FORK;
     } else if (smRootPid == 0) {
-        execl("../splitter_merger", "splitter_merger", datafile, 0, 1, pattern, height, (char *) NULL);
+        execl("../splitter_merger", "splitter_merger", datafile, 0, 1, pattern, height, skew, (char *) NULL);
         // this code will run only if exec fails:
         perror("execl");
         free(datafile); free(pattern);
