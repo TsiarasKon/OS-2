@@ -7,7 +7,7 @@
 #include <unistd.h>
 #include <getopt.h>
 #include "common/util.h"
-#include "types.h"
+#include "structs.h"
 
 int main(int argc, char *argv[]) {
     const char argErrorMsg[] = "Invalid arguments. Please run \"$ ./myfind -h Height -d Datafile -p Pattern [-s]\"\n";
@@ -77,7 +77,7 @@ int main(int argc, char *argv[]) {
         free(datafile); free(pattern);
         return EC_FORK;
     } else if (smRootPid == 0) {
-        execl("../splitter_merger", "splitter_merger", datafile, 0, 1, pattern, height, skew, (char *) NULL);
+        execl("../splitter_merger", "splitter_merger", datafile, 0, recordsNum - 1, pattern, height, skew, (char *) NULL);
         // this code will run only if exec fails:
         perror("execl");
         free(datafile); free(pattern);
