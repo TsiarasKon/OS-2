@@ -13,4 +13,9 @@ enum ErrorCodes {
     EC_UNKNOWN   // An unexpected error
 };
 
+typedef struct statistics {
+    int runtime;
+    int recordsNum;
+} Statistics;
+
 #endif
