@@ -1,6 +1,8 @@
 #ifndef OS_2_RECORD_H
 #define OS_2_RECORD_H
 
+#include <stdbool.h>
+
 typedef struct record {
     long am;
     char fisrtName[20];
@@ -12,6 +14,7 @@ typedef struct record {
     float salary;
 } Record;
 
+bool searchRecord(Record r, char *pattern);
 void printRecord(Record r);
 
 #endif

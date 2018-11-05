@@ -3,13 +3,16 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/stat.h>
+#include <time.h>
+#include <unistd.h>
 #include "common/util.h"
 #include "record.h"
 
 /* Expected argv arguments, in that order:
- * datafile, rangeStart, rangeEnd, searchPattern */
+ * datafile, rangeStart, rangeEnd, searchPattern[, rootPid] */
 int main(int argc, char *argv[]) {
-    if (argc != 5) {
+    clock_t start_t = clock();
+    if (argc != 5 && argc != 6) {
         fprintf(stderr, "[Searcher] Invalid number of arguments.\n");
         return EC_ARG;
     }
@@ -26,6 +29,16 @@ int main(int argc, char *argv[]) {
         return EC_ARG;
     }
     char *pattern = argv[4];
+    int rootPid;
+    if (argc == 6) {
+        rootPid = (int) strtol(argv[5], &strtolEndptr, 10);
+        if (*strtolEndptr != '\0' || rootPid < 2) {
+            fprintf(stderr, "[Searcher] Invalid arguments: invalid Root pid.\n");
+            return EC_ARG;
+        }
+    } else {
+        fprintf(stderr, "[Searcher] Warning: Root pid was not provided - SIGUSR2 won't be sent.\n");
+    }
 
     FILE *datafp = fopen(datafile, "rb");
     if (datafp == NULL) {
@@ -46,9 +59,26 @@ int main(int argc, char *argv[]) {
     Record currRecord;
     for (int i = rangeStart; i <= rangeEnd; i++) {
         fread(&currRecord, sizeof(struct record), 1, datafp);
-        printRecord(currRecord);
+        if (searchRecord(currRecord, pattern)) printRecord(currRecord);
+    }
+    fclose(datafp);
+
+    bool isOutRedirected = !(bool) isatty(STDOUT_FILENO);
+    if (isOutRedirected) printf("%s", termSequence);
+
+    Statistics stats;
+    stats.cpuTime = ((double) (clock() - start_t)) / CLOCKS_PER_SEC;
+    stats.recordsNum = rangeEnd - rangeStart + 1;
+    if (isOutRedirected) {
+        // then write stats in binary, as they will be read by a splitter-merger
+        fwrite(&stats, sizeof(Statistics), 1, stdout);
+        printf("%s", termSequence);
+    } else {
+        printf("Statistics:\n");
+        printf("Reocrds Searched: %d\n", stats.recordsNum);
+        printf("CPU Time: %f sec\n", stats.cpuTime);
     }
 
-    fclose(datafp);
+    if (argc == 6) kill(rootPid, SIGUSR2);
     return EC_OK;
 }

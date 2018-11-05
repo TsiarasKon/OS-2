@@ -14,8 +14,10 @@ enum ErrorCodes {
 };
 
 typedef struct statistics {
-    int runtime;
+    double cpuTime;
     int recordsNum;
 } Statistics;
+
+const char termSequence[] = "$";
 
 #endif

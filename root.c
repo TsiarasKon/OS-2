@@ -10,7 +10,7 @@
 #include "record.h"
 
 int main(int argc, char *argv[]) {
-    const char argErrorMsg[] = "[Root] Invalid arguments. Please run \"$ ./myfind -h Height -d Datafile -p Pattern [-s]\"\n";
+    const char argErrorMsg[] = "Invalid arguments. Please run \"$ ./myfind -h Height -d Datafile -p Pattern [-s]\"\n";
     if (argc != 7 && argc != 8) {
         printf("%s", argErrorMsg);
         return EC_ARG;
@@ -26,7 +26,7 @@ int main(int argc, char *argv[]) {
             case 'h':
                 height = (int) strtol(optarg, &strtolEndptr, 10);
                 if (*strtolEndptr != '\0' || height < 1 || height > 5) {
-                    printf("[Root] Invalid arguments: Height must be an integer between 1 and 5 (inclusive).\n");
+                    printf("Invalid arguments: Height must be an integer between 1 and 5 (inclusive).\n");
                     return EC_ARG;
                 }
                 break;
