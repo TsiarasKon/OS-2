@@ -2,8 +2,8 @@
 <project version="4">
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true" buildAllGenerated="true">
     <generated>
-      <config projectName="OS_2" targetName="Splitter-Merger" />
       <config projectName="OS_2" targetName="Searcher" />
+      <config projectName="OS_2" targetName="Splitter_Merger" />
     </generated>
   </component>
   <component name="CMakeSettings" AUTO_RELOAD="true">
@@ -12,15 +12,10 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="de60402b-91a9-49d4-874b-f225f6c008ad" name="Default Changelist" comment="Searcher argument checking and reading Records from range">
-      <change afterPath="$PROJECT_DIR$/splitter_merger.c" afterDir="false" />
+    <list default="true" id="de60402b-91a9-49d4-874b-f225f6c008ad" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/util.h" beforeDir="false" afterPath="$PROJECT_DIR$/common/util.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/record.c" beforeDir="false" afterPath="$PROJECT_DIR$/record.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/record.h" beforeDir="false" afterPath="$PROJECT_DIR$/record.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/root.c" beforeDir="false" afterPath="$PROJECT_DIR$/root.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/searcher.c" beforeDir="false" afterPath="$PROJECT_DIR$/searcher.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/splitter_merger.c" beforeDir="false" afterPath="$PROJECT_DIR$/splitter_merger.c" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -34,14 +29,15 @@
     <session id="-304385114">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="4" />
+          <entry key="project.closed" value="5" />
           <entry key="project.open.time.15" value="1" />
           <entry key="project.open.time.16" value="1" />
           <entry key="project.open.time.22" value="1" />
+          <entry key="project.open.time.24" value="1" />
           <entry key="project.open.time.3" value="1" />
           <entry key="project.open.time.34" value="1" />
           <entry key="project.open.time.4" value="1" />
-          <entry key="project.opened" value="6" />
+          <entry key="project.opened" value="7" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -59,29 +55,29 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="c" value="4717" />
+          <entry key="c" value="5716" />
           <entry key="h" value="625" />
-          <entry key="txt" value="422" />
+          <entry key="txt" value="562" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="CMakeLists.txt" value="45" />
-          <entry key="ObjectiveC" value="5342" />
-          <entry key="PLAIN_TEXT" value="377" />
+          <entry key="CMakeLists.txt" value="114" />
+          <entry key="ObjectiveC" value="6341" />
+          <entry key="PLAIN_TEXT" value="448" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.34929404">
+    <splitter split-orientation="horizontal" split-proportion="0.42224953">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="119">
-                  <caret line="7" column="30" selection-start-line="7" selection-start-column="30" selection-end-line="7" selection-end-column="30" />
+                <state relative-caret-position="153">
+                  <caret line="9" column="26" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="26" />
                 </state>
               </provider>
             </entry>
@@ -89,8 +85,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/searcher.c">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="425">
-                  <caret line="77" column="20" selection-start-line="77" selection-start-column="20" selection-end-line="77" selection-end-column="20" />
+                <state relative-caret-position="255">
+                  <caret line="68" column="28" lean-forward="true" selection-start-line="68" selection-start-column="28" selection-end-line="68" selection-end-column="28" />
                   <folding>
                     <element signature="e#0#18#0" expanded="true" />
                   </folding>
@@ -119,7 +115,7 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/root.c">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="153">
+                <state relative-caret-position="156">
                   <caret line="72" column="15" selection-start-line="72" selection-start-column="15" selection-end-line="72" selection-end-column="15" />
                   <folding>
                     <element signature="e#0#18#0" expanded="true" />
@@ -135,8 +131,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/splitter_merger.c">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="262">
-                  <caret line="67" column="5" selection-start-line="67" selection-start-column="5" selection-end-line="67" selection-end-column="5" />
+                <state relative-caret-position="2108">
+                  <caret line="149" column="40" selection-start-line="149" selection-start-column="40" selection-end-line="149" selection-end-column="40" />
                   <folding>
                     <element signature="e#0#18#0" expanded="true" />
                   </folding>
@@ -147,8 +143,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/record.c">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="238">
-                  <caret line="14" column="47" selection-start-line="14" selection-start-column="47" selection-end-line="14" selection-end-column="47" />
+                <state relative-caret-position="374">
+                  <caret line="22" column="28" selection-start-line="22" selection-start-column="28" selection-end-line="24" selection-end-column="63" />
                   <folding>
                     <element signature="e#0#18#0" expanded="true" />
                   </folding>
@@ -177,11 +173,11 @@
         <option value="$PROJECT_DIR$/main.c" />
         <option value="$PROJECT_DIR$/record.h" />
         <option value="$PROJECT_DIR$/root.c" />
-        <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/common/util.h" />
         <option value="$PROJECT_DIR$/record.c" />
-        <option value="$PROJECT_DIR$/splitter_merger.c" />
         <option value="$PROJECT_DIR$/searcher.c" />
+        <option value="$PROJECT_DIR$/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/splitter_merger.c" />
       </list>
     </option>
   </component>
@@ -267,7 +263,7 @@
     </option>
   </component>
   <component name="RunManager" selected="Application.Splitter-Merger">
-    <configuration name="Searcher" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="../inputs/Records100.bin 0 99 nville" PASS_PARENT_ENVS_2="true" PROJECT_NAME="OS_2" TARGET_NAME="Searcher" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="OS_2" RUN_TARGET_NAME="Searcher">
+    <configuration name="Searcher" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="../inputs/Records100.bin 0 99 nville 3" PASS_PARENT_ENVS_2="true" PROJECT_NAME="OS_2" TARGET_NAME="Searcher" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="OS_2" RUN_TARGET_NAME="Searcher">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -277,7 +273,17 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Splitter-Merger" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="../inputs/Records10000.bin 0 9999 Athens 1 0 5" PASS_PARENT_ENVS_2="true" PROJECT_NAME="OS_2" TARGET_NAME="Splitter-Merger" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="OS_2" RUN_TARGET_NAME="Splitter-Merger">
+    <configuration name="Splitter-Merger h2" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="../inputs/Records10000.bin 0 9999 Athens 2 0 5" PASS_PARENT_ENVS_2="true" PROJECT_NAME="OS_2" TARGET_NAME="Splitter_Merger" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="OS_2" RUN_TARGET_NAME="Splitter_Merger">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Splitter-Merger" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="../inputs/Records10000.bin 0 9999 Athens 1 0 5" PASS_PARENT_ENVS_2="true" PROJECT_NAME="OS_2" TARGET_NAME="Splitter_Merger" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="OS_2" RUN_TARGET_NAME="Splitter_Merger">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Splitter_Merger" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="OS_2" TARGET_NAME="Splitter_Merger" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="OS_2" RUN_TARGET_NAME="Splitter_Merger">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -296,8 +302,10 @@
       <item itemvalue="Application.h3 -s" />
       <item itemvalue="Application.h1" />
       <item itemvalue="Application.Searcher" />
+      <item itemvalue="Application.Splitter_Merger" />
       <item itemvalue="Application.Searcher10^4" />
       <item itemvalue="Application.Splitter-Merger" />
+      <item itemvalue="Application.Splitter-Merger h2" />
     </list>
   </component>
   <component name="SvnConfiguration">
@@ -315,7 +323,8 @@
       <workItem from="1541253312297" duration="744000" />
       <workItem from="1541406521084" duration="10177000" />
       <workItem from="1541441019137" duration="4967000" />
-      <workItem from="1541517959178" duration="9263000" />
+      <workItem from="1541517959178" duration="10755000" />
+      <workItem from="1541533260661" duration="5869000" />
     </task>
     <task id="LOCAL-00001" summary="Command line argument checking">
       <created>1541170086907</created>
@@ -359,19 +368,26 @@
       <option name="project" value="LOCAL" />
       <updated>1541456448277</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Splitter-Merger argument checking and Searchers' creation">
+      <created>1541528343388</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1541528343389</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="41518000" />
+    <option name="totallyTimeSpent" value="48879000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.43704775" visible="true" weight="0.13166311" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.43560058" visible="true" weight="0.13272922" />
       <window_info id="Favorites" order="1" sideWeight="0.49234137" side_tool="true" weight="0.16345347" />
-      <window_info id="Structure" order="2" sideWeight="0.5629522" side_tool="true" visible="true" weight="0.13166311" />
+      <window_info id="Structure" order="2" sideWeight="0.5643994" side_tool="true" visible="true" weight="0.13272922" />
       <window_info id="TODO" order="3" sideWeight="0.49124727" weight="0.2154233" />
       <window_info anchor="bottom" id="Messages" order="0" weight="0.24728851" />
       <window_info anchor="bottom" id="CMake" order="1" weight="0.2494577" />
@@ -404,33 +420,27 @@
     <MESSAGE value="Assignment updated Record format" />
     <MESSAGE value="Searcher argument checking and reading Records from range" />
     <MESSAGE value="Added pattern checking and statistics printing in searcher&#10;&#10;Searcher is essentially finished now" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added pattern checking and statistics printing in searcher&#10;&#10;Searcher is essentially finished now" />
+    <MESSAGE value="Splitter-Merger argument checking and Searchers' creation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Splitter-Merger argument checking and Searchers' creation" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/cmake-build-debug/Makefile">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/root.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="72" column="15" selection-start-line="72" selection-start-column="15" selection-end-line="72" selection-end-column="15" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="30" selection-start-line="7" selection-start-column="30" selection-end-line="7" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/record.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
           <caret line="16" column="43" selection-start-line="16" selection-start-column="43" selection-end-line="16" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/record.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="28" selection-start-line="22" selection-start-column="28" selection-end-line="24" selection-end-column="63" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -441,20 +451,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/record.c">
+    <entry file="file://$PROJECT_DIR$/root.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="47" selection-start-line="14" selection-start-column="47" selection-end-line="14" selection-end-column="47" />
+        <state relative-caret-position="156">
+          <caret line="72" column="15" selection-start-line="72" selection-start-column="15" selection-end-line="72" selection-end-column="15" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="26" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/splitter_merger.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="67" column="5" selection-start-line="67" selection-start-column="5" selection-end-line="67" selection-end-column="5" />
+        <state relative-caret-position="2108">
+          <caret line="149" column="40" selection-start-line="149" selection-start-column="40" selection-end-line="149" selection-end-column="40" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
@@ -463,8 +480,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/searcher.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="77" column="20" selection-start-line="77" selection-start-column="20" selection-end-line="77" selection-end-column="20" />
+        <state relative-caret-position="255">
+          <caret line="68" column="28" lean-forward="true" selection-start-line="68" selection-start-column="28" selection-end-line="68" selection-end-column="28" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
