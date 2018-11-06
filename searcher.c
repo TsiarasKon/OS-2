@@ -9,10 +9,10 @@
 #include "record.h"
 
 /* Expected argv arguments, in that order:
- * datafile, rangeStart, rangeEnd, searchPattern[, rootPid] */
+ * datafile, rangeStart, rangeEnd, searchPattern, rootPid */
 int main(int argc, char *argv[]) {
     clock_t start_t = clock();
-    if (argc != 5 && argc != 6) {
+    if (argc != 6) {
         fprintf(stderr, "[Searcher] Invalid number of arguments.\n");
         return EC_ARG;
     }
@@ -29,15 +29,10 @@ int main(int argc, char *argv[]) {
         return EC_ARG;
     }
     char *pattern = argv[4];
-    int rootPid;
-    if (argc == 6) {
-        rootPid = (int) strtol(argv[5], &strtolEndptr, 10);
-        if (*strtolEndptr != '\0' || rootPid < 2) {
-            fprintf(stderr, "[Searcher] Invalid arguments: invalid Root pid.\n");
-            return EC_ARG;
-        }
-    } else {
-        fprintf(stderr, "[Searcher] Warning: Root pid was not provided - SIGUSR2 won't be sent.\n");
+    int rootPid = (int) strtol(argv[5], &strtolEndptr, 10);
+    if (*strtolEndptr != '\0' || rootPid < 2) {
+        fprintf(stderr, "[Searcher] Invalid arguments: invalid Root pid.\n");
+        return EC_ARG;
     }
 
     FILE *datafp = fopen(datafile, "rb");
@@ -56,29 +51,34 @@ int main(int argc, char *argv[]) {
     }
     fseek(datafp, rangeStart * sizeof(Record), SEEK_SET);       // move file position to rangeStart Record
 
+    Statistics stats;
+    stats.recordsMatched = 0;
+    int nextStructIndicator = 0;        // 0 for Record, 1 for Statistics
     Record currRecord;
     for (int i = rangeStart; i <= rangeEnd; i++) {
-        fread(&currRecord, sizeof(struct record), 1, datafp);
-        if (searchRecord(currRecord, pattern)) printRecord(currRecord);
+        fread(&currRecord, sizeof(Record), 1, datafp);
+        if (searchRecord(currRecord, pattern)) {
+            // if Record matched Pattern, write it to stdout
+            fwrite(&nextStructIndicator, sizeof(int), 1, stdout);
+            fwrite(&currRecord, sizeof(Record), 1, stdout);
+            stats.recordsMatched++;
+        }
     }
     fclose(datafp);
 
-    bool isOutRedirected = !(bool) isatty(STDOUT_FILENO);
-    if (isOutRedirected) printf("%s", termSequence);
-
-    Statistics stats;
+    // write stats to stdout
     stats.cpuTime = ((double) (clock() - start_t)) / CLOCKS_PER_SEC;
-    stats.recordsNum = rangeEnd - rangeStart + 1;
-    if (isOutRedirected) {
-        // then write stats in binary, as they will be read by a splitter-merger
-        fwrite(&stats, sizeof(Statistics), 1, stdout);
-        printf("%s", termSequence);
-    } else {
-        printf("Statistics:\n");
-        printf("Reocrds Searched: %d\n", stats.recordsNum);
-        printf("CPU Time: %f sec\n", stats.cpuTime);
-    }
+    stats.recordsSearched = rangeEnd - rangeStart + 1;
+    nextStructIndicator = 1;
+    fwrite(&nextStructIndicator, sizeof(int), 1, stdout);
+    fwrite(&stats, sizeof(Statistics), 1, stdout);
 
-    if (argc == 6) kill(rootPid, SIGUSR2);
+    /// DEBUG:
+    fprintf(stderr, "Statistics:\n");
+    fprintf(stderr, "Records Searched: %d\n", stats.recordsSearched);
+    fprintf(stderr, "Records Matched: %d\n", stats.recordsMatched);
+    fprintf(stderr, "CPU Time: %f sec\n", stats.cpuTime);
+
+    kill(rootPid, SIGUSR2);
     return EC_OK;
 }

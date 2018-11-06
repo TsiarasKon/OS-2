@@ -70,7 +70,8 @@ int main(int argc, char *argv[]) {
         perror("[Root] fork");
         return EC_FORK;
     } else if (smRootPid == 0) {
-        execl("../splitter_merger", "splitter_merger", datafile, 0, recordsNum - 1, pattern, height, skew, (char *) NULL);
+        execl("./splitter_merger", "splitter_merger", datafile, 0, recordsNum - 1,
+                pattern, height, skew, getpid(), char *) NULL);
         // this code will run only if exec fails:
         perror("[Root] execl");
         return EC_EXEC;

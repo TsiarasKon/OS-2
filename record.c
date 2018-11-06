@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "record.h"
+#include "common/util.h"
 
 bool searchRecord(Record r, char *pattern) {
     if ( strstr(r.fisrtName, pattern) || strstr(r.lastName, pattern) ||
@@ -9,7 +10,7 @@ bool searchRecord(Record r, char *pattern) {
             strstr(r.zipCode, pattern) )
         return true;
     // Checking numeric fields as well:
-    char numStr[22];        // assuming at most 64-bit numbers (2^64 can be stored in 21 chars in base 10)
+    char numStr[MAX_NUM_STRING_SIZE];
     sprintf(numStr, "%ld", r.am);
     if ( strstr(numStr, pattern) ) return true;
     sprintf(numStr, "%d", r.streetNum);

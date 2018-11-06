@@ -1,6 +1,13 @@
 #ifndef OS_2_UTIL_H
 #define OS_2_UTIL_H
 
+// assuming at most 64-bit numbers (2^64 can be stored in 21 chars in base 10)
+#define MAX_NUM_STRING_SIZE 22
+
+// For pipes:
+#define WRITE_END 1
+#define READ_END 0
+
 enum ErrorCodes {
     EC_OK,       // Success
     EC_ARG,      // Invalid command line arguments
@@ -13,11 +20,10 @@ enum ErrorCodes {
     EC_UNKNOWN   // An unexpected error
 };
 
-typedef struct statistics {
+typedef struct {
     double cpuTime;
-    int recordsNum;
+    int recordsSearched;
+    int recordsMatched;
 } Statistics;
-
-const char termSequence[] = "$";
 
 #endif

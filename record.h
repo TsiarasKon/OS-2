@@ -3,7 +3,7 @@
 
 #include <stdbool.h>
 
-typedef struct record {
+typedef struct {
     long am;
     char fisrtName[20];
     char lastName[20];
