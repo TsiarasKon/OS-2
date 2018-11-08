@@ -50,7 +50,7 @@ SMStats *combineSMStats(SMStats st1, SMStats st2, double selfCpuTime) {
 }
 
 void printSMStats(SMStats st) {
-    fprintf(stderr, "Splitter-Merger Stats:\n");
+    printf("Splitter-Merger Stats:\n");
 //    printf(" Min Searcher CPU Time: %f\n", st.minSearcherCpuTime);
 //    printf(" Max Searcher CPU Time: %f\n", st.maxSearcherCpuTime);
 //    printf(" Average Searcher CPU Time: %f\n", st.avgSearcherCpuTime);
@@ -60,13 +60,13 @@ void printSMStats(SMStats st) {
 //    printf(" Min Splitter-Merger CPU Time: %f\n", st.minSMCpuTime);
 //    printf(" Max Splitter-Merger CPU Time: %f\n", st.maxSMCpuTime);
 //    printf(" Average Splitter-Merger CPU Time: %f\n", st.avgSMCpuTime);
-    fprintf(stderr, "                          |    Min   |    Max   |    Avg   |\n");
-    fprintf(stderr, "      Searcher Times      | %8f | %8f | %8f |\n",
+    printf("                          |    Min   |    Max   |    Avg   |\n");
+    printf("      Searcher Times      | %8f | %8f | %8f |\n",
             st.minSearcherCpuTime, st.maxSearcherCpuTime, st.avgSearcherCpuTime);
-    fprintf(stderr, " Searcher Records Matched | %8d | %8d | %8d |\n",
+    printf(" Searcher Records Matched | %8d | %8d | %8d |\n",
             st.minSearcherRecordsMatched, st.maxSearcherRecordsMatched, st.avgSearcherRecordsMatched);
-    fprintf(stderr, "   Splitter-Merger Times  | %8f | %8f | %8f |\n",
+    printf("   Splitter-Merger Times  | %8f | %8f | %8f |\n",
             st.minSMCpuTime, st.maxSMCpuTime, st.avgSMCpuTime);
-    fprintf(stderr, "      Searchers Number    | %30d |\n", st.totalSearchersNum);
-    fprintf(stderr, "   Total Records Matched  | %30d |\n", st.totalRecordsMatched);
+    printf("      Searchers Number    | %30d |\n", st.totalSearchersNum);
+    printf("   Total Records Matched  | %30d |\n", st.totalRecordsMatched);
 }

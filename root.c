@@ -6,8 +6,10 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <getopt.h>
+#include <time.h>
 #include "headers/util.h"
 #include "headers/record.h"
+#include "headers/statistics.h"
 
 int main(int argc, char *argv[]) {
     const char argErrorMsg[] = "Invalid arguments. Please run \"$ ./myfind -h Height -d Datafile -p Pattern [-s]\"\n";
@@ -64,32 +66,79 @@ int main(int argc, char *argv[]) {
         return EC_INVALID;
     }
 
-    // TODO create pipe
-    int smRootPid = fork();
-    if (smRootPid < 0) {
+    // TODO: establish signal handler
+
+    int smfd[2];
+    pipe(smfd);
+    pid_t smPid = fork();
+    if (smPid < 0) {
         perror("[Root] fork");
         return EC_FORK;
-    } else if (smRootPid == 0) {
-        execl("./splitter_merger", "splitter_merger", datafile, 0, recordsNum - 1,
-                pattern, height, skew, getpid(), char *) NULL);
+    } else if (smPid == 0) {
+        dup2(smfd[WRITE_END], STDOUT_FILENO);
+        close(smfd[READ_END]);
+        close(smfd[WRITE_END]);
+        char rangeStartStr[MAX_NUM_STRING_SIZE];
+        sprintf(rangeStartStr, "%d", 0);
+        char rangeEndStr[MAX_NUM_STRING_SIZE];
+        sprintf(rangeEndStr, "%d", recordsNum - 1);
+        char rootPidStr[MAX_NUM_STRING_SIZE];
+        sprintf(rootPidStr, "%d", getpid());
+        char heightStr[2];
+        sprintf(heightStr, "%d", height);
+        char skewStr[2];
+        sprintf(skewStr, "%d", skew);
+        execl("./splitter_merger", "splitter_merger", datafile, rangeStartStr,
+              rangeEndStr, pattern, heightStr, skewStr, rootPidStr, (char *) NULL);
         // this code will run only if exec fails:
         perror("[Root] execl");
         return EC_EXEC;
     }
+    close(smfd[WRITE_END]);
 
-    // TODO: stuff
-
-    // TODO create pipe
-    int sortPid = fork();
-    if (sortPid < 0) {
-        perror("[Root] fork");
-        // TODO: frees?
-        return EC_FORK;
-    } else if (sortPid == 0) {
-        execl("../sorter", "sorter", /* search results, */ (char *) NULL);
-        perror("[Root] execl");
-        return EC_EXEC;
+    int nextStructIndicator = 0;
+    Record currRecord;
+    SMStats completeSMStats;
+    bool smDone = false;
+    while (!smDone) {
+        if (read(smfd[READ_END], &nextStructIndicator, sizeof(int)) < 0) {
+            perror("[Root] Error reading from pipe");
+            return EC_PIPE;
+        }
+        if (nextStructIndicator == 0) {     // Next struct is a Record
+            if (read(smfd[READ_END], &currRecord, sizeof(Record)) < 0) {
+                perror("[Root] Error reading from pipe");
+                return EC_PIPE;
+            }
+            printRecord(currRecord);
+        } else if (nextStructIndicator == 2) {        // Next struct is SMStats
+            if (read(smfd[READ_END], &completeSMStats, sizeof(SMStats)) < 0) {
+                perror("[Root] Error reading from pipe");
+                return EC_PIPE;
+            }
+            smDone = true;
+        } else {        // should never get here
+            printf("%d\n", nextStructIndicator);
+            fprintf(stderr, "[Root] Received invalid data from pipe.\n");
+            return EC_INVALID;
+        }
     }
+    printSMStats(completeSMStats);
+
+
+    // TODO create sorter
+//    int sorterfd[2];
+//    pipe(sorterfd);
+//    pid_t sorterPid = fork();
+//    if (sorterPid < 0) {
+//        perror("[Root] fork");
+//        // TODO: frees?
+//        return EC_FORK;
+//    } else if (sorterPid == 0) {
+//        execl("../sorter", "sorter", /* search results, */ (char *) NULL);
+//        perror("[Root] execl");
+//        return EC_EXEC;
+//    }
 
     return EC_OK;
 }

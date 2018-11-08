@@ -37,7 +37,11 @@ int main(int argc, char *argv[]) {
         fprintf(stderr, "[Splitter-Merger] Invalid arguments: Height must be an integer between 1 and 5 (inclusive).\n");
         return EC_ARG;
     }
-    bool skew = argv[6];
+    bool skew = (bool) strtol(argv[6], &strtolEndptr, 10);
+    if (*strtolEndptr != '\0') {
+        fprintf(stderr, "[Splitter-Merger] Invalid arguments: Skew can only be 0 or 1.\n");
+        return EC_ARG;
+    }
     int rootPid = (int) strtol(argv[7], &strtolEndptr, 10);
     if (*strtolEndptr != '\0' || rootPid < 2) {
         fprintf(stderr, "[Splitter-Merger] Invalid arguments: invalid Root pid.\n");
@@ -66,9 +70,9 @@ int main(int argc, char *argv[]) {
             execlp("./searcher", "searcher", datafile, rangeStartStr,
                    rangeEndStr, pattern, rootPidStr, (char *) NULL);
         } else {
-            char heightStr[MAX_NUM_STRING_SIZE];
+            char heightStr[2];
             sprintf(heightStr, "%d", height - 1);
-            char skewStr[MAX_NUM_STRING_SIZE];
+            char skewStr[2];
             sprintf(skewStr, "%d", skew);
             execl("./splitter_merger", "splitter_merger", datafile, rangeStartStr,
                   rangeEndStr, pattern, heightStr, skewStr, rootPidStr, (char *) NULL);
@@ -95,9 +99,9 @@ int main(int argc, char *argv[]) {
             execlp("./searcher", "searcher", datafile, rangeStartStr,
                    rangeEndStr, pattern, rootPidStr, (char *) NULL);
         } else {
-            char heightStr[MAX_NUM_STRING_SIZE];
+            char heightStr[2];
             sprintf(heightStr, "%d", height - 1);
-            char skewStr[MAX_NUM_STRING_SIZE];
+            char skewStr[2];
             sprintf(skewStr, "%d", skew);
             execl("./splitter_merger", "splitter_merger", datafile, rangeStartStr,
                   rangeEndStr, pattern, heightStr, skewStr, rootPidStr, (char *) NULL);
@@ -134,11 +138,8 @@ int main(int argc, char *argv[]) {
                         perror("[Splitter-Merger] Error reading from pipe");
                         return EC_PIPE;
                     }
-                    if (height < 3) {        /// DEBUG
-                        fwrite(&nextStructIndicator, sizeof(int), 1, stdout);
-                        fwrite(&currRecord, sizeof(Record), 1, stdout);
-                    }
-                    if (height == 3) printRecord(currRecord);        /// DEBUG
+                    fwrite(&nextStructIndicator, sizeof(int), 1, stdout);
+                    fwrite(&currRecord, sizeof(Record), 1, stdout);
                 } else if (nextStructIndicator == 1) {        // Next struct is SearcherStats
                     if (read(pollfd[i].fd, &searcherStats[i], sizeof(SearcherStats)) < 0) {
                         perror("[Splitter-Merger] Error reading from pipe");
@@ -170,12 +171,9 @@ int main(int argc, char *argv[]) {
         perror("[Splitter-Merger] malloc");
         return EC_MEM;
     }
-    if (height == 3) printSMStats(*currSMStats);        /// DEBUG
-    if (height < 3) {           /// DEBUG
-        nextStructIndicator = 2;
-        fwrite(&nextStructIndicator, sizeof(int), 1, stdout);
-        fwrite(currSMStats, sizeof(SMStats), 1, stdout);
-    }
+    nextStructIndicator = 2;
+    fwrite(&nextStructIndicator, sizeof(int), 1, stdout);
+    fwrite(currSMStats, sizeof(SMStats), 1, stdout);
     free(currSMStats);
 
     close(fd1[READ_END]);
