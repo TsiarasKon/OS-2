@@ -6,8 +6,8 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <getopt.h>
-#include "common/util.h"
-#include "record.h"
+#include "headers/util.h"
+#include "headers/record.h"
 
 int main(int argc, char *argv[]) {
     const char argErrorMsg[] = "Invalid arguments. Please run \"$ ./myfind -h Height -d Datafile -p Pattern [-s]\"\n";

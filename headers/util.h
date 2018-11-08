@@ -20,10 +20,4 @@ enum ErrorCodes {
     EC_UNKNOWN   // An unexpected error
 };
 
-typedef struct {
-    double cpuTime;
-    int recordsSearched;
-    int recordsMatched;
-} Statistics;
-
 #endif

@@ -5,12 +5,14 @@
 #include <unistd.h>
 #include <wait.h>
 #include <poll.h>
-#include "common/util.h"
-#include "record.h"
+#include "headers/util.h"
+#include "headers/statistics.h"
+#include "headers/record.h"
 
 /* Expected argv arguments, in that order:
  * datafile, rangeStart, rangeEnd, searchPattern, height, skew, rootPid */
 int main(int argc, char *argv[]) {
+    clock_t start_t = clock();
     if (argc != 8) {
         fprintf(stderr, "[Splitter-Merger] Invalid number of arguments.\n");
         return EC_ARG;
@@ -112,7 +114,7 @@ int main(int argc, char *argv[]) {
     bool child_completed[2] = {false, false};
     int nextStructIndicator;
     Record currRecord;
-    Statistics currStats;
+    SearcherStats searcherStats[2];
     while (!child_completed[0] || !child_completed[1]) {
         if (poll(pollfd, (nfds_t) 2, -1) < 0) {
             perror("[Splitter-Merger] poll");
@@ -133,7 +135,7 @@ int main(int argc, char *argv[]) {
 //                    fwrite(&currRecord, sizeof(Record), 1, stdout);
                     printRecord(currRecord);        /// DEBUG
                 } else if (nextStructIndicator == 1) {        // Next struct is Statistics
-                    if (read(pollfd[i].fd, &currStats, sizeof(Statistics)) < 0) {
+                    if (read(pollfd[i].fd, &searcherStats[i], sizeof(SearcherStats)) < 0) {
                         perror("[Splitter-Merger] Error reading from pipe");
                         return EC_PIPE;
                     }
@@ -146,10 +148,13 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    nextStructIndicator = 1;
-    // TODO: generate and write sm stats
+    double selfCpuTime = ((double) (clock() - start_t)) / CLOCKS_PER_SEC;
+    SMStats *currSMStats = combineSearcherStats(searcherStats[0], searcherStats[1], selfCpuTime);
+    printSMStats(*currSMStats);        /// DEBUG
+//    nextStructIndicator = 1;
 //    fwrite(&nextStructIndicator, sizeof(int), 1, stdout);
 //    fwrite(&stats, sizeof(Statistics), 1, stdout);
+    free(currSMStats);
 
     close(fd1[READ_END]);
     close(fd2[READ_END]);

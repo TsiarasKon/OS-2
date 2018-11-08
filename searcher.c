@@ -5,8 +5,9 @@
 #include <sys/stat.h>
 #include <time.h>
 #include <unistd.h>
-#include "common/util.h"
-#include "record.h"
+#include "headers/util.h"
+#include "headers/statistics.h"
+#include "headers/record.h"
 
 /* Expected argv arguments, in that order:
  * datafile, rangeStart, rangeEnd, searchPattern, rootPid */
@@ -51,7 +52,7 @@ int main(int argc, char *argv[]) {
     }
     fseek(datafp, rangeStart * sizeof(Record), SEEK_SET);       // move file position to rangeStart Record
 
-    Statistics stats;
+    SearcherStats stats;
     stats.recordsMatched = 0;
     int nextStructIndicator = 0;        // 0 for Record, 1 for Statistics
     Record currRecord;
@@ -68,14 +69,12 @@ int main(int argc, char *argv[]) {
 
     // write stats to stdout
     stats.cpuTime = ((double) (clock() - start_t)) / CLOCKS_PER_SEC;
-    stats.recordsSearched = rangeEnd - rangeStart + 1;
     nextStructIndicator = 1;
     fwrite(&nextStructIndicator, sizeof(int), 1, stdout);
-    fwrite(&stats, sizeof(Statistics), 1, stdout);
+    fwrite(&stats, sizeof(SearcherStats), 1, stdout);
 
     /// DEBUG:
     fprintf(stderr, "Statistics:\n");
-    fprintf(stderr, "Records Searched: %d\n", stats.recordsSearched);
     fprintf(stderr, "Records Matched: %d\n", stats.recordsMatched);
     fprintf(stderr, "CPU Time: %f sec\n", stats.cpuTime);
 

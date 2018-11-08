@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "record.h"
-#include "common/util.h"
+#include "headers/record.h"
+#include "headers/util.h"
 
 bool searchRecord(Record r, char *pattern) {
     if ( strstr(r.fisrtName, pattern) || strstr(r.lastName, pattern) ||
