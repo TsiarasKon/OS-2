@@ -1,3 +1,4 @@
+#define _POSIX_SOURCE
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
@@ -5,6 +6,8 @@
 #include <sys/stat.h>
 #include <time.h>
 #include <unistd.h>
+#include <signal.h>
+#include <sys/types.h>
 #include "headers/util.h"
 #include "headers/statistics.h"
 #include "headers/record.h"
@@ -46,7 +49,7 @@ int main(int argc, char *argv[]) {
         perror("[Searcher] stat");
         return EC_FILE;
     }
-    if (st.st_size < (rangeEnd + 1) * sizeof(Record)) {
+    if ( st.st_size < (unsigned int) ((rangeEnd + 1) * sizeof(Record)) ) {
         fprintf(stderr, "[Searcher] rangeEnd surpasses file end.\n");
         return EC_INVALID;
     }
@@ -73,10 +76,10 @@ int main(int argc, char *argv[]) {
     fwrite(&nextStructIndicator, sizeof(int), 1, stdout);
     fwrite(&stats, sizeof(SearcherStats), 1, stdout);
 
-    /// DEBUG:
-    fprintf(stderr, "Statistics:\n");
-    fprintf(stderr, "Records Matched: %d\n", stats.recordsMatched);
-    fprintf(stderr, "CPU Time: %f sec\n", stats.cpuTime);
+//    /// DEBUG:
+//    fprintf(stderr, "Statistics:\n");
+//    fprintf(stderr, "Records Matched: %d\n", stats.recordsMatched);
+//    fprintf(stderr, "CPU Time: %f sec\n", stats.cpuTime);
 
     kill(rootPid, SIGUSR2);
     return EC_OK;

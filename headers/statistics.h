@@ -7,12 +7,14 @@ typedef struct {
 } SearcherStats;
 
 typedef struct {
+    int totalSearchersNum;
     double minSearcherCpuTime;
     double maxSearcherCpuTime;
     double avgSearcherCpuTime;
     int minSearcherRecordsMatched;
     int maxSearcherRecordsMatched;
     int avgSearcherRecordsMatched;
+    int totalRecordsMatched;
     double minSMCpuTime;
     double maxSMCpuTime;
     double avgSMCpuTime;

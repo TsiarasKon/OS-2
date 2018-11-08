@@ -3,8 +3,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <sys/types.h>
 #include <wait.h>
 #include <poll.h>
+#include <time.h>
 #include "headers/util.h"
 #include "headers/statistics.h"
 #include "headers/record.h"
@@ -59,7 +61,7 @@ int main(int argc, char *argv[]) {
         close(fd1[READ_END]);
         close(fd1[WRITE_END]);
         sprintf(rangeStartStr, "%d", rangeStart);
-        sprintf(rangeEndStr, "%d", rangeStart + rangeSplit);
+        sprintf(rangeEndStr, "%d", rangeSplit);
         if (height == 1) {
             execlp("./searcher", "searcher", datafile, rangeStartStr,
                    rangeEndStr, pattern, rootPidStr, (char *) NULL);
@@ -87,7 +89,7 @@ int main(int argc, char *argv[]) {
         dup2(fd2[WRITE_END], STDOUT_FILENO);
         close(fd2[READ_END]);
         close(fd2[WRITE_END]);
-        sprintf(rangeStartStr, "%d", rangeStart + rangeSplit + 1);
+        sprintf(rangeStartStr, "%d", rangeSplit + 1);
         sprintf(rangeEndStr, "%d", rangeEnd);
         if (height == 1) {
             execlp("./searcher", "searcher", datafile, rangeStartStr,
@@ -115,6 +117,7 @@ int main(int argc, char *argv[]) {
     int nextStructIndicator;
     Record currRecord;
     SearcherStats searcherStats[2];
+    SMStats smStats[2];
     while (!child_completed[0] || !child_completed[1]) {
         if (poll(pollfd, (nfds_t) 2, -1) < 0) {
             perror("[Splitter-Merger] poll");
@@ -131,11 +134,19 @@ int main(int argc, char *argv[]) {
                         perror("[Splitter-Merger] Error reading from pipe");
                         return EC_PIPE;
                     }
-//                    fwrite(&nextStructIndicator, sizeof(int), 1, stdout);
-//                    fwrite(&currRecord, sizeof(Record), 1, stdout);
-                    printRecord(currRecord);        /// DEBUG
-                } else if (nextStructIndicator == 1) {        // Next struct is Statistics
+                    if (height < 3) {        /// DEBUG
+                        fwrite(&nextStructIndicator, sizeof(int), 1, stdout);
+                        fwrite(&currRecord, sizeof(Record), 1, stdout);
+                    }
+                    if (height == 3) printRecord(currRecord);        /// DEBUG
+                } else if (nextStructIndicator == 1) {        // Next struct is SearcherStats
                     if (read(pollfd[i].fd, &searcherStats[i], sizeof(SearcherStats)) < 0) {
+                        perror("[Splitter-Merger] Error reading from pipe");
+                        return EC_PIPE;
+                    }
+                    child_completed[i] = true;
+                } else if (nextStructIndicator == 2) {        // Next struct is SMStats
+                    if (read(pollfd[i].fd, &smStats[i], sizeof(SMStats)) < 0) {
                         perror("[Splitter-Merger] Error reading from pipe");
                         return EC_PIPE;
                     }
@@ -149,11 +160,22 @@ int main(int argc, char *argv[]) {
     }
 
     double selfCpuTime = ((double) (clock() - start_t)) / CLOCKS_PER_SEC;
-    SMStats *currSMStats = combineSearcherStats(searcherStats[0], searcherStats[1], selfCpuTime);
-    printSMStats(*currSMStats);        /// DEBUG
-//    nextStructIndicator = 1;
-//    fwrite(&nextStructIndicator, sizeof(int), 1, stdout);
-//    fwrite(&stats, sizeof(Statistics), 1, stdout);
+    SMStats *currSMStats;
+    if (height == 1) {
+        currSMStats = combineSearcherStats(searcherStats[0], searcherStats[1], selfCpuTime);
+    } else {
+        currSMStats = combineSMStats(smStats[0], smStats[1], selfCpuTime);
+    }
+    if (currSMStats == NULL) {
+        perror("[Splitter-Merger] malloc");
+        return EC_MEM;
+    }
+    if (height == 3) printSMStats(*currSMStats);        /// DEBUG
+    if (height < 3) {           /// DEBUG
+        nextStructIndicator = 2;
+        fwrite(&nextStructIndicator, sizeof(int), 1, stdout);
+        fwrite(currSMStats, sizeof(SMStats), 1, stdout);
+    }
     free(currSMStats);
 
     close(fd1[READ_END]);
