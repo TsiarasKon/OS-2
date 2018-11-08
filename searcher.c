@@ -81,6 +81,6 @@ int main(int argc, char *argv[]) {
 //    fprintf(stderr, "Records Matched: %d\n", stats.recordsMatched);
 //    fprintf(stderr, "CPU Time: %f sec\n", stats.cpuTime);
 
-//    kill(rootPid, SIGUSR2);
+    kill(rootPid, SIGUSR2);
     return EC_OK;
 }

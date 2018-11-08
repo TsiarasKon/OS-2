@@ -8,13 +8,13 @@ typedef struct {
 
 typedef struct {
     int totalSearchersNum;
+    int totalRecordsMatched;
     double minSearcherCpuTime;
     double maxSearcherCpuTime;
     double avgSearcherCpuTime;
     int minSearcherRecordsMatched;
     int maxSearcherRecordsMatched;
-    int avgSearcherRecordsMatched;
-    int totalRecordsMatched;
+    double avgSearcherRecordsMatched;
     double minSMCpuTime;
     double maxSMCpuTime;
     double avgSMCpuTime;

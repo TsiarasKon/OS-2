@@ -1,3 +1,4 @@
+#define _POSIX_SOURCE
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
@@ -7,9 +8,16 @@
 #include <unistd.h>
 #include <getopt.h>
 #include <time.h>
+#include <signal.h>
 #include "headers/util.h"
 #include "headers/record.h"
 #include "headers/statistics.h"
+
+volatile sig_atomic_t searcherSignalsReceived = 0;
+
+void sigusr2Handler() {
+    searcherSignalsReceived++;
+}
 
 int main(int argc, char *argv[]) {
     const char argErrorMsg[] = "Invalid arguments. Please run \"$ ./myfind -h Height -d Datafile -p Pattern [-s]\"\n";
@@ -66,7 +74,14 @@ int main(int argc, char *argv[]) {
         return EC_INVALID;
     }
 
-    // TODO: establish signal handler
+    struct sigaction act;
+    memset(&act, 0, sizeof(act));
+    act.sa_handler = sigusr2Handler;
+    act.sa_flags = SA_RESTART;      // so that read()s won't be interrupted
+    if ( sigaction(SIGUSR2, &act, NULL) < 0 ) {
+        perror("[Root] sigaction");
+        return EC_SIG;
+    }
 
     int smfd[2];
     pipe(smfd);
@@ -83,7 +98,7 @@ int main(int argc, char *argv[]) {
         char rangeEndStr[MAX_NUM_STRING_SIZE];
         sprintf(rangeEndStr, "%d", recordsNum - 1);
         char rootPidStr[MAX_NUM_STRING_SIZE];
-        sprintf(rootPidStr, "%d", getpid());
+        sprintf(rootPidStr, "%d", getppid());
         char heightStr[2];
         sprintf(heightStr, "%d", height);
         char skewStr[2];
@@ -118,12 +133,13 @@ int main(int argc, char *argv[]) {
             }
             smDone = true;
         } else {        // should never get here
-            printf("%d\n", nextStructIndicator);
             fprintf(stderr, "[Root] Received invalid data from pipe.\n");
             return EC_INVALID;
         }
     }
+    printf("\n");
     printSMStats(completeSMStats);
+    printf("\nSIGUSR2 received: %d\n", searcherSignalsReceived);
 
 
     // TODO create sorter
