@@ -1,16 +1,17 @@
-#define _POSIX_SOURCE
-#include <stdio.h>
+#define _GNU_SOURCE
+#include <poll.h>
+#include <time.h>
 #include <stdbool.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <sys/types.h>
 #include <wait.h>
-#include <poll.h>
-#include <time.h>
-#include "headers/util.h"
-#include "headers/statistics.h"
+#include <sys/types.h>
+
 #include "headers/record.h"
+#include "headers/statistics.h"
+#include "headers/util.h"
 
 /* Expected argv arguments, in that order:
  * datafile, rangeStart, rangeEnd, searchPattern, height, skew, rootPid */

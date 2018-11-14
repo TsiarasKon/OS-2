@@ -1,22 +1,24 @@
-#define _POSIX_SOURCE
-#include <stdio.h>
+#define _GNU_SOURCE
+#include <getopt.h>
+#include <signal.h>
 #include <stdbool.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <unistd.h>
-#include <getopt.h>
 #include <time.h>
-#include <signal.h>
-#include "headers/util.h"
+#include <unistd.h>
+#include <wait.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+
 #include "headers/record.h"
 #include "headers/statistics.h"
+#include "headers/util.h"
 
-volatile sig_atomic_t searcherSignalsReceived = 0;
+volatile sig_atomic_t sigusr2Received = 0;
 
 void sigusr2Handler() {
-    searcherSignalsReceived++;
+    sigusr2Received++;
 }
 
 int main(int argc, char *argv[]) {
@@ -110,6 +112,7 @@ int main(int argc, char *argv[]) {
         return EC_EXEC;
     }
     close(smfd[WRITE_END]);
+    wait(NULL);
 
     int nextStructIndicator = 0;
     Record currRecord;
@@ -139,7 +142,7 @@ int main(int argc, char *argv[]) {
     }
     printf("\n");
     printSMStats(completeSMStats);
-    printf("\nSIGUSR2 received: %d\n", searcherSignalsReceived);
+    printf("\nSIGUSR2 received: %d\n", sigusr2Received);
 
 
     // TODO create sorter
@@ -155,6 +158,8 @@ int main(int argc, char *argv[]) {
 //        perror("[Root] execl");
 //        return EC_EXEC;
 //    }
+//    close(sorterfd[WRITE_END]);
+//    wait(NULL);
 
     return EC_OK;
 }

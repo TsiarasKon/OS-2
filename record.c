@@ -1,7 +1,10 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
 #include "headers/record.h"
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+
 #include "headers/util.h"
 
 bool searchRecord(Record r, char *pattern) {
@@ -18,6 +21,13 @@ bool searchRecord(Record r, char *pattern) {
     sprintf(numStr, "%f", r.salary);
     if ( strstr(numStr, pattern) ) return true;
     return false;
+}
+
+bool readRecord(int fd, Record *record) {       // TODO: improve and use
+    if (read(fd, record, sizeof(Record)) < 0) {
+        return false;
+    }
+    return true;
 }
 
 void printRecord(Record r) {

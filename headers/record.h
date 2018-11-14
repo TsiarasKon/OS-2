@@ -15,6 +15,7 @@ typedef struct {
 } Record;
 
 bool searchRecord(Record r, char *pattern);
+bool readRecord(int fd, Record *record);
 void printRecord(Record r);
 
 #endif

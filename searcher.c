@@ -1,16 +1,17 @@
-#define _POSIX_SOURCE
-#include <stdio.h>
+#define _GNU_SOURCE
+#include <signal.h>
 #include <stdbool.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/stat.h>
 #include <time.h>
 #include <unistd.h>
-#include <signal.h>
+#include <sys/stat.h>
 #include <sys/types.h>
-#include "headers/util.h"
-#include "headers/statistics.h"
+
 #include "headers/record.h"
+#include "headers/statistics.h"
+#include "headers/util.h"
 
 /* Expected argv arguments, in that order:
  * datafile, rangeStart, rangeEnd, searchPattern, rootPid */
@@ -70,16 +71,11 @@ int main(int argc, char *argv[]) {
     }
     fclose(datafp);
 
-    // write stats to stdout
+    // Write stats to stdout:
     stats.cpuTime = ((double) (clock() - start_t)) / CLOCKS_PER_SEC;
     nextStructIndicator = 1;
     fwrite(&nextStructIndicator, sizeof(int), 1, stdout);
     fwrite(&stats, sizeof(SearcherStats), 1, stdout);
-
-//    /// DEBUG:
-//    fprintf(stderr, "Statistics:\n");
-//    fprintf(stderr, "Records Matched: %d\n", stats.recordsMatched);
-//    fprintf(stderr, "CPU Time: %f sec\n", stats.cpuTime);
 
     kill(rootPid, SIGUSR2);
     return EC_OK;

@@ -1,6 +1,7 @@
+#include "headers/statistics.h"
+
 #include <stdio.h>
 #include <stdlib.h>
-#include "headers/statistics.h"
 
 SMStats *combineSearcherStats(SearcherStats st1, SearcherStats st2, double selfCpuTime) {
     SMStats *newSMStats = malloc(sizeof(SMStats));

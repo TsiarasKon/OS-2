@@ -15,8 +15,8 @@
   <component name="ChangeListManager">
     <list default="true" id="de60402b-91a9-49d4-874b-f225f6c008ad" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/headers/statistics.h" beforeDir="false" afterPath="$PROJECT_DIR$/headers/statistics.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/headers/util.h" beforeDir="false" afterPath="$PROJECT_DIR$/headers/util.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/headers/record.h" beforeDir="false" afterPath="$PROJECT_DIR$/headers/record.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/record.c" beforeDir="false" afterPath="$PROJECT_DIR$/record.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/root.c" beforeDir="false" afterPath="$PROJECT_DIR$/root.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/searcher.c" beforeDir="false" afterPath="$PROJECT_DIR$/searcher.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/splitter_merger.c" beforeDir="false" afterPath="$PROJECT_DIR$/splitter_merger.c" afterDir="false" />
@@ -34,7 +34,7 @@
     <session id="-304385114">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="7" />
+          <entry key="project.closed" value="11" />
           <entry key="project.open.time.15" value="1" />
           <entry key="project.open.time.16" value="1" />
           <entry key="project.open.time.22" value="2" />
@@ -42,8 +42,10 @@
           <entry key="project.open.time.25" value="1" />
           <entry key="project.open.time.3" value="1" />
           <entry key="project.open.time.34" value="1" />
-          <entry key="project.open.time.4" value="1" />
-          <entry key="project.opened" value="9" />
+          <entry key="project.open.time.4" value="2" />
+          <entry key="project.open.time.50" value="1" />
+          <entry key="project.open.time.51" value="1" />
+          <entry key="project.opened" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -62,9 +64,9 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="Makefile" value="452" />
-          <entry key="c" value="8468" />
-          <entry key="h" value="929" />
-          <entry key="txt" value="791" />
+          <entry key="c" value="8620" />
+          <entry key="h" value="931" />
+          <entry key="txt" value="1078" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
@@ -72,8 +74,8 @@
           <entry key="CMakeLists.txt" value="154" />
           <entry key="Doxygen file" value="1" />
           <entry key="Makefile" value="355" />
-          <entry key="ObjectiveC" value="9396" />
-          <entry key="PLAIN_TEXT" value="734" />
+          <entry key="ObjectiveC" value="9550" />
+          <entry key="PLAIN_TEXT" value="1021" />
         </counts>
       </usages-collector>
     </session>
@@ -94,7 +96,7 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Makefile">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="122">
+                <state relative-caret-position="272">
                   <caret line="16" column="58" selection-start-line="16" selection-start-column="58" selection-end-line="16" selection-end-column="58" />
                 </state>
               </provider>
@@ -103,8 +105,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/headers/record.h">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="272">
-                  <caret line="16" column="43" selection-start-line="16" selection-start-column="43" selection-end-line="16" selection-end-column="43" />
+                <state relative-caret-position="289">
+                  <caret line="17" column="40" lean-forward="true" selection-start-line="17" selection-start-column="40" selection-end-line="17" selection-end-column="40" />
                 </state>
               </provider>
             </entry>
@@ -122,7 +124,7 @@
             <entry file="file://$PROJECT_DIR$/headers/statistics.h">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="238">
-                  <caret line="14" column="34" lean-forward="true" selection-start-line="14" selection-start-column="34" selection-end-line="14" selection-end-column="34" />
+                  <caret line="14" column="34" selection-start-line="14" selection-start-column="34" selection-end-line="14" selection-end-column="34" />
                 </state>
               </provider>
             </entry>
@@ -130,10 +132,10 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/root.c">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1343">
-                  <caret line="79" column="26" selection-start-line="79" selection-start-column="26" selection-end-line="79" selection-end-column="26" />
+                <state relative-caret-position="932">
+                  <caret line="142" column="17" lean-forward="true" selection-start-line="142" selection-start-column="17" selection-end-line="142" selection-end-column="17" />
                   <folding>
-                    <element signature="e#0#18#0" expanded="true" />
+                    <element signature="e#20#39#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -146,11 +148,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/splitter_merger.c">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="833">
-                  <caret line="49" column="5" selection-start-line="49" selection-start-column="5" selection-end-line="49" selection-end-column="5" />
-                  <folding>
-                    <element signature="e#0#18#0" expanded="true" />
-                  </folding>
+                <state relative-caret-position="-2302">
+                  <caret line="7" column="19" selection-start-line="7" selection-start-column="19" selection-end-line="8" selection-end-column="17" />
                 </state>
               </provider>
             </entry>
@@ -158,32 +157,29 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/statistics.c">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="238">
-                  <caret line="14" column="53" lean-forward="true" selection-start-line="14" selection-start-column="53" selection-end-line="14" selection-end-column="53" />
-                  <folding>
-                    <element signature="e#0#18#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/searcher.c">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1428">
-                  <caret line="84" column="17" selection-start-line="84" selection-start-column="17" selection-end-line="84" selection-end-column="17" />
-                  <folding>
-                    <element signature="e#0#18#0" expanded="true" />
-                  </folding>
+                <state relative-caret-position="17">
+                  <caret line="1" selection-start-line="1" selection-end-line="1" />
                 </state>
               </provider>
             </entry>
           </file>
           <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/searcher.c">
+              <provider selected="true" editor-type-id="text-editor">
+                <state>
+                  <caret column="12" selection-start-column="12" selection-end-column="12" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/record.c">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="68">
-                  <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+                <state relative-caret-position="425">
+                  <caret line="25" column="72" selection-start-line="25" selection-start-column="72" selection-end-line="25" selection-end-column="72" />
+                  <folding>
+                    <element signature="e#0#27#0" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -212,15 +208,16 @@
         <option value="$PROJECT_DIR$/record.h" />
         <option value="$PROJECT_DIR$/common/util.h" />
         <option value="$PROJECT_DIR$/statistics.h" />
-        <option value="$PROJECT_DIR$/record.c" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/Makefile" />
         <option value="$PROJECT_DIR$/headers/util.h" />
-        <option value="$PROJECT_DIR$/splitter_merger.c" />
-        <option value="$PROJECT_DIR$/searcher.c" />
         <option value="$PROJECT_DIR$/headers/statistics.h" />
         <option value="$PROJECT_DIR$/statistics.c" />
+        <option value="$PROJECT_DIR$/searcher.c" />
+        <option value="$PROJECT_DIR$/splitter_merger.c" />
+        <option value="$PROJECT_DIR$/headers/record.h" />
         <option value="$PROJECT_DIR$/root.c" />
+        <option value="$PROJECT_DIR$/record.c" />
       </list>
     </option>
   </component>
@@ -257,6 +254,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -273,7 +271,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -376,7 +373,10 @@
       <workItem from="1541517959178" duration="10755000" />
       <workItem from="1541533260661" duration="6083000" />
       <workItem from="1541663941442" duration="12238000" />
-      <workItem from="1541679976846" duration="14531000" />
+      <workItem from="1541679976846" duration="14822000" />
+      <workItem from="1541709797120" duration="1682000" />
+      <workItem from="1541785585297" duration="1400000" />
+      <workItem from="1542135773812" duration="2830000" />
     </task>
     <task id="LOCAL-00001" summary="Command line argument checking">
       <created>1541170086907</created>
@@ -462,19 +462,26 @@
       <option name="project" value="LOCAL" />
       <updated>1541689088466</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Root receiving SIGUSR2s from Searchers&#10;&#10;Note: Seemingly works fine due to SA_RESTART flag in sigaction.&#10;This may not be available in all platforms where extra caution will have&#10;to be taken so that read()s won't be interrupted by incoming signals.">
+      <created>1541694841764</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1541694841764</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="75862000" />
+    <option name="totallyTimeSpent" value="82065000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.43378997" visible="true" weight="0.13486141" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.43058568" visible="true" weight="0.13859275" />
       <window_info id="Favorites" order="1" sideWeight="0.49234137" side_tool="true" weight="0.16345347" />
-      <window_info id="Structure" order="2" sideWeight="0.56621003" side_tool="true" visible="true" weight="0.13486141" />
+      <window_info id="Structure" order="2" sideWeight="0.5694143" side_tool="true" visible="true" weight="0.13859275" />
       <window_info id="TODO" order="3" sideWeight="0.49124727" weight="0.2154233" />
       <window_info anchor="bottom" id="Messages" order="0" weight="0.24728851" />
       <window_info anchor="bottom" id="CMake" order="1" weight="0.2494577" />
@@ -483,7 +490,7 @@
       <window_info anchor="bottom" id="Terminal" order="4" weight="0.2516269" />
       <window_info anchor="bottom" id="Message" order="5" />
       <window_info anchor="bottom" id="Find" order="6" weight="0.32936078" />
-      <window_info active="true" anchor="bottom" id="Run" order="7" sideWeight="0.4989339" visible="true" weight="0.28741866" />
+      <window_info anchor="bottom" id="Run" order="7" sideWeight="0.4989339" weight="0.28741866" />
       <window_info anchor="bottom" id="Debug" order="8" weight="0.36984816" />
       <window_info anchor="bottom" id="Cvs" order="9" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="10" weight="0.4" />
@@ -492,6 +499,7 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="right" id="make" order="4" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -513,7 +521,8 @@
     <MESSAGE value="Splitter-Merger getting data from children Splitter-Mergers&#10;&#10;Also refined Statistics" />
     <MESSAGE value="Makefile (so far)" />
     <MESSAGE value="Root getting data from Splitter-Merger" />
-    <option name="LAST_COMMIT_MESSAGE" value="Root getting data from Splitter-Merger" />
+    <MESSAGE value="Root receiving SIGUSR2s from Searchers&#10;&#10;Note: Seemingly works fine due to SA_RESTART flag in sigaction.&#10;This may not be available in all platforms where extra caution will have&#10;to be taken so that read()s won't be interrupted by incoming signals." />
+    <option name="LAST_COMMIT_MESSAGE" value="Root receiving SIGUSR2s from Searchers&#10;&#10;Note: Seemingly works fine due to SA_RESTART flag in sigaction.&#10;This may not be available in all platforms where extra caution will have&#10;to be taken so that read()s won't be interrupted by incoming signals." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/cmake-build-debug/Makefile">
@@ -526,81 +535,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
-          <folding>
-            <element signature="e#269#323#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/record.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Makefile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="122">
-          <caret line="16" column="58" selection-start-line="16" selection-start-column="58" selection-end-line="16" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="62" selection-start-line="6" selection-start-column="62" selection-end-line="6" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/statistics.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="53" lean-forward="true" selection-start-line="14" selection-start-column="53" selection-end-line="14" selection-end-column="53" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/splitter_merger.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="833">
-          <caret line="49" column="5" selection-start-line="49" selection-start-column="5" selection-end-line="49" selection-end-column="5" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/searcher.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1428">
-          <caret line="84" column="17" selection-start-line="84" selection-start-column="17" selection-end-line="84" selection-end-column="17" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/headers/record.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="43" selection-start-line="16" selection-start-column="43" selection-end-line="16" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/headers/util.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="17" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/headers/statistics.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="34" lean-forward="true" selection-start-line="14" selection-start-column="34" selection-end-line="14" selection-end-column="34" />
         </state>
       </provider>
     </entry>
@@ -611,12 +545,78 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="62" selection-start-line="6" selection-start-column="62" selection-end-line="6" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Makefile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="58" selection-start-line="16" selection-start-column="58" selection-end-line="16" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/headers/statistics.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="34" selection-start-line="14" selection-start-column="34" selection-end-line="14" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/splitter_merger.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2302">
+          <caret line="7" column="19" selection-start-line="7" selection-start-column="19" selection-end-line="8" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/headers/util.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="17" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/headers/record.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" column="40" lean-forward="true" selection-start-line="17" selection-start-column="40" selection-end-line="17" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/statistics.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/searcher.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="12" selection-start-column="12" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/record.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="25" column="72" selection-start-line="25" selection-start-column="72" selection-end-line="25" selection-end-column="72" />
+          <folding>
+            <element signature="e#0#27#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/root.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1343">
-          <caret line="79" column="26" selection-start-line="79" selection-start-column="26" selection-end-line="79" selection-end-column="26" />
+        <state relative-caret-position="932">
+          <caret line="142" column="17" lean-forward="true" selection-start-line="142" selection-start-column="17" selection-end-line="142" selection-end-column="17" />
           <folding>
-            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#20#39#0" expanded="true" />
           </folding>
         </state>
       </provider>
