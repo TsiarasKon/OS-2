@@ -66,6 +66,7 @@ int main(int argc, char *argv[]) {
             // if Record matched Pattern, write it to stdout
             fwrite(&nextStructIndicator, sizeof(int), 1, stdout);
             fwrite(&currRecord, sizeof(Record), 1, stdout);
+            fflush(stdout);
             stats.recordsMatched++;
         }
     }

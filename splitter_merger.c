@@ -98,7 +98,7 @@ int main(int argc, char *argv[]) {
         sprintf(rangeStartStr, "%d", rangeSplit + 1);
         sprintf(rangeEndStr, "%d", rangeEnd);
         if (height == 1) {
-            execlp("./searcher", "searcher", datafile, rangeStartStr,
+            execl("./searcher", "searcher", datafile, rangeStartStr,
                    rangeEndStr, pattern, rootPidStr, (char *) NULL);
         } else {
             char heightStr[2];
@@ -142,6 +142,7 @@ int main(int argc, char *argv[]) {
                     }
                     fwrite(&nextStructIndicator, sizeof(int), 1, stdout);
                     fwrite(&currRecord, sizeof(Record), 1, stdout);
+                    fflush(stdout);
                 } else if (nextStructIndicator == 1) {        // Next struct is SearcherStats
                     if (read(pollfd[i].fd, &searcherStats[i], sizeof(SearcherStats)) < 0) {
                         perror("[Splitter-Merger] Error reading from pipe");
@@ -177,6 +178,7 @@ int main(int argc, char *argv[]) {
     fwrite(&nextStructIndicator, sizeof(int), 1, stdout);
     fwrite(currSMStats, sizeof(SMStats), 1, stdout);
     free(currSMStats);
+    fflush(stdout);
 
     close(fd1[READ_END]);
     close(fd2[READ_END]);

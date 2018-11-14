@@ -2,6 +2,7 @@
 #define OS_2_RECORD_H
 
 #include <stdbool.h>
+#include <stdio.h>
 
 typedef struct {
     long am;
@@ -16,6 +17,24 @@ typedef struct {
 
 bool searchRecord(Record r, char *pattern);
 bool readRecord(int fd, Record *record);
-void printRecord(Record r);
+void printRecord(FILE *fp, Record r);
+
+/* Record List definitions and functions declarations: */
+
+typedef struct recordListNode RecordListNode;
+struct recordListNode {
+    Record *record;
+    RecordListNode *next;
+};
+
+typedef struct {
+    RecordListNode *first;
+    RecordListNode *last;
+} RecordList;
+
+RecordList *createRecordList();
+void deleteRecordList(RecordList **rList);
+bool addRecordToList(RecordList *rList, Record r);
+void printRecordList(FILE *fp, RecordList *rList);
 
 #endif

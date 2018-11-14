@@ -112,8 +112,12 @@ int main(int argc, char *argv[]) {
         return EC_EXEC;
     }
     close(smfd[WRITE_END]);
-    wait(NULL);
 
+    RecordList *recordList = createRecordList();
+    if (recordList == NULL) {
+        perror("[Root] malloc");
+        return EC_MEM;
+    }
     int nextStructIndicator = 0;
     Record currRecord;
     SMStats completeSMStats;
@@ -121,45 +125,68 @@ int main(int argc, char *argv[]) {
     while (!smDone) {
         if (read(smfd[READ_END], &nextStructIndicator, sizeof(int)) < 0) {
             perror("[Root] Error reading from pipe");
+            deleteRecordList(&recordList);
             return EC_PIPE;
         }
         if (nextStructIndicator == 0) {     // Next struct is a Record
             if (read(smfd[READ_END], &currRecord, sizeof(Record)) < 0) {
                 perror("[Root] Error reading from pipe");
+                deleteRecordList(&recordList);
                 return EC_PIPE;
             }
-            printRecord(currRecord);
+//            printRecord(stdout, currRecord);      // DEBUG
+            if (! addRecordToList(recordList, currRecord)) {
+                perror("[Root] malloc");
+                deleteRecordList(&recordList);
+                return EC_MEM;
+            }
         } else if (nextStructIndicator == 2) {        // Next struct is SMStats
             if (read(smfd[READ_END], &completeSMStats, sizeof(SMStats)) < 0) {
                 perror("[Root] Error reading from pipe");
+                deleteRecordList(&recordList);
                 return EC_PIPE;
             }
             smDone = true;
         } else {        // should never get here
             fprintf(stderr, "[Root] Received invalid data from pipe.\n");
+            deleteRecordList(&recordList);
             return EC_INVALID;
         }
     }
-    printf("\n");
+    wait(NULL);
+
+    if (recordList->first == NULL) {
+        printf("No records matched!\n");
+    } else if (recordList->first == recordList->last) {     // only one result - no reason to sort
+        printf("Results:\n");
+        printRecordList(stdout, recordList);
+    } else {
+        //    int sorterfd[2];
+    //    pipe(sorterfd);
+    //    pid_t sorterPid = fork();
+    //    if (sorterPid < 0) {
+    //        perror("[Root] fork");
+    //        // TODO: frees?
+    //        return EC_FORK;
+    //    } else if (sorterPid == 0) {
+    //        dup2(sorterfd[READ_END], STDIN_FILENO);
+    //        close(sorterfd[READ_END]);
+    ////        dup2(sorterfd[WRITE_END], STDOUT_FILENO);
+    //        close(sorterfd[WRITE_END]);
+    //        execlp("/usr/bin/sort", "sort", "-n", (char *) NULL);
+    //        perror("[Root] execl");
+    //        return EC_EXEC;
+    //    }
+    //    FILE* fp = fdopen(sorterfd[WRITE_END], "w");
+    //    fclose(fp);
+    //    wait(NULL);
+
+        printRecordList(stdout, recordList);
+    }
+
+    printf("Stats:\n");
     printSMStats(completeSMStats);
     printf("\nSIGUSR2 received: %d\n", sigusr2Received);
-
-
-    // TODO create sorter
-//    int sorterfd[2];
-//    pipe(sorterfd);
-//    pid_t sorterPid = fork();
-//    if (sorterPid < 0) {
-//        perror("[Root] fork");
-//        // TODO: frees?
-//        return EC_FORK;
-//    } else if (sorterPid == 0) {
-//        execl("../sorter", "sorter", /* search results, */ (char *) NULL);
-//        perror("[Root] execl");
-//        return EC_EXEC;
-//    }
-//    close(sorterfd[WRITE_END]);
-//    wait(NULL);
 
     return EC_OK;
 }
