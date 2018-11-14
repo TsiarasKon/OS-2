@@ -113,6 +113,9 @@ int main(int argc, char *argv[]) {
     }
     close(smfd[WRITE_END]);
 
+    printf("Searching Records from '%s' containing \"%s\" in any field ...\n",
+            datafile, pattern);
+
     RecordList *recordList = createRecordList();
     if (recordList == NULL) {
         perror("[Root] malloc");
@@ -134,7 +137,6 @@ int main(int argc, char *argv[]) {
                 deleteRecordList(&recordList);
                 return EC_PIPE;
             }
-//            printRecord(stdout, currRecord);      // DEBUG
             if (! addRecordToList(recordList, currRecord)) {
                 perror("[Root] malloc");
                 deleteRecordList(&recordList);
@@ -158,7 +160,7 @@ int main(int argc, char *argv[]) {
     if (recordList->first == NULL) {
         printf("No records matched!\n");
     } else if (recordList->first == recordList->last) {     // only one result - no reason to sort
-        printf("Results:\n");
+        printf("Matching Records:\n");
         printRecordList(stdout, recordList);
     } else {
         int sorterfd[2];
@@ -172,7 +174,7 @@ int main(int argc, char *argv[]) {
             dup2(sorterfd[READ_END], STDIN_FILENO);
             close(sorterfd[READ_END]);
             close(sorterfd[WRITE_END]);
-            printf("Results:\n");
+            printf("Matching Records:\n");
             execlp("/usr/bin/sort", "sort", "-n", (char *) NULL);
             perror("[Root] execlp");
             deleteRecordList(&recordList);

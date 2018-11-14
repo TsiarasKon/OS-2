@@ -16,7 +16,7 @@
 /* Expected argv arguments, in that order:
  * datafile, rangeStart, rangeEnd, searchPattern, height, skew, rootPid */
 int main(int argc, char *argv[]) {
-    clock_t start_t = clock();
+    long long startTime = getCurrentTime();
     if (argc != 8) {
         fprintf(stderr, "[Splitter-Merger] Invalid number of arguments.\n");
         return EC_ARG;
@@ -163,12 +163,12 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    double selfCpuTime = ((double) (clock() - start_t)) / CLOCKS_PER_SEC;
+    double selfTime = (getCurrentTime() - startTime) / 1000.0;       // in seconds
     SMStats *currSMStats;
     if (height == 1) {
-        currSMStats = combineSearcherStats(searcherStats[0], searcherStats[1], selfCpuTime);
+        currSMStats = combineSearcherStats(searcherStats[0], searcherStats[1], selfTime);
     } else {
-        currSMStats = combineSMStats(smStats[0], smStats[1], selfCpuTime);
+        currSMStats = combineSMStats(smStats[0], smStats[1], selfTime);
     }
     if (currSMStats == NULL) {
         perror("[Splitter-Merger] malloc");

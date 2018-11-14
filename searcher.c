@@ -4,7 +4,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <time.h>
 #include <unistd.h>
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -16,7 +15,7 @@
 /* Expected argv arguments, in that order:
  * datafile, rangeStart, rangeEnd, searchPattern, rootPid */
 int main(int argc, char *argv[]) {
-    clock_t start_t = clock();
+    long long startTime = getCurrentTime();
     if (argc != 6) {
         fprintf(stderr, "[Searcher] Invalid number of arguments.\n");
         return EC_ARG;
@@ -73,7 +72,7 @@ int main(int argc, char *argv[]) {
     fclose(datafp);
 
     // Write stats to stdout:
-    stats.cpuTime = ((double) (clock() - start_t)) / CLOCKS_PER_SEC;
+    stats.searcherTime = (getCurrentTime() - startTime) / 1000.0;       // in seconds
     nextStructIndicator = 1;
     fwrite(&nextStructIndicator, sizeof(int), 1, stdout);
     fwrite(&stats, sizeof(SearcherStats), 1, stdout);

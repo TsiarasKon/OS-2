@@ -32,7 +32,7 @@ typedef struct {
     RecordListNode *last;
 } RecordList;
 
-RecordList *createRecordList();
+RecordList *createRecordList(void);
 void deleteRecordList(RecordList **rList);
 bool addRecordToList(RecordList *rList, Record r);
 void printRecordList(FILE *fp, RecordList *rList);

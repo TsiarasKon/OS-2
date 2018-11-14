@@ -3,19 +3,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-SMStats *combineSearcherStats(SearcherStats st1, SearcherStats st2, double selfCpuTime) {
+SMStats *combineSearcherStats(SearcherStats st1, SearcherStats st2, double selfTime) {
     SMStats *newSMStats = malloc(sizeof(SMStats));
     if (newSMStats == NULL) return NULL;
     newSMStats->totalSearchersNum = 2;
+    newSMStats->totalSMNum = 1;
     newSMStats->totalRecordsMatched = st1.recordsMatched + st2.recordsMatched;
-    if (st1.cpuTime < st2.cpuTime) {
-        newSMStats->minSearcherCpuTime = st1.cpuTime;
-        newSMStats->maxSearcherCpuTime = st2.cpuTime;
+    if (st1.searcherTime < st2.searcherTime) {
+        newSMStats->minSearcherTime = st1.searcherTime;
+        newSMStats->maxSearcherTime = st2.searcherTime;
     } else {
-        newSMStats->minSearcherCpuTime = st2.cpuTime;
-        newSMStats->maxSearcherCpuTime = st1.cpuTime;
+        newSMStats->minSearcherTime = st2.searcherTime;
+        newSMStats->maxSearcherTime = st1.searcherTime;
     }
-    newSMStats->avgSearcherCpuTime = (st1.cpuTime + st2.cpuTime) / 2;
+    newSMStats->avgSearcherTime = (st1.searcherTime + st2.searcherTime) / 2;
     if (st1.recordsMatched < st2.recordsMatched) {
         newSMStats->minSearcherRecordsMatched = st1.recordsMatched;
         newSMStats->maxSearcherRecordsMatched = st2.recordsMatched;
@@ -24,50 +25,53 @@ SMStats *combineSearcherStats(SearcherStats st1, SearcherStats st2, double selfC
         newSMStats->maxSearcherRecordsMatched = st1.recordsMatched;
     }
     newSMStats->avgSearcherRecordsMatched = (st1.recordsMatched + st2.recordsMatched) / 2.0;
-    newSMStats->minSMCpuTime = newSMStats->maxSMCpuTime = newSMStats->avgSMCpuTime = selfCpuTime;
+    newSMStats->minSMTime = newSMStats->maxSMTime = newSMStats->avgSMTime = selfTime;
     return newSMStats;
 }
 
-SMStats *combineSMStats(SMStats st1, SMStats st2, double selfCpuTime) {
+SMStats *combineSMStats(SMStats st1, SMStats st2, double selfTime) {
     SMStats *newSMStats = malloc(sizeof(SMStats));
     if (newSMStats == NULL) return NULL;
     newSMStats->totalSearchersNum = st1.totalSearchersNum + st2.totalSearchersNum;
+    newSMStats->totalSMNum = st1.totalSMNum + st2.totalSMNum + 1;
     newSMStats->totalRecordsMatched = st1.totalRecordsMatched + st2.totalRecordsMatched;
-    newSMStats->minSearcherCpuTime = (st1.minSearcherCpuTime < st2.minSearcherCpuTime) ?
-            st1.minSearcherCpuTime : st2.minSearcherCpuTime;
-    newSMStats->maxSearcherCpuTime = (st1.maxSearcherCpuTime > st2.minSearcherCpuTime) ?
-            st1.maxSearcherCpuTime : st2.maxSearcherCpuTime;
-    newSMStats->avgSearcherCpuTime = (st1.avgSearcherCpuTime + st2.avgSearcherCpuTime) / 2;
+    newSMStats->minSearcherTime = (st1.minSearcherTime < st2.minSearcherTime) ?
+            st1.minSearcherTime : st2.minSearcherTime;
+    newSMStats->maxSearcherTime = (st1.maxSearcherTime > st2.minSearcherTime) ?
+            st1.maxSearcherTime : st2.maxSearcherTime;
+    newSMStats->avgSearcherTime = (st1.avgSearcherTime + st2.avgSearcherTime) / 2;
     newSMStats->minSearcherRecordsMatched = (st1.minSearcherRecordsMatched < st2.minSearcherRecordsMatched) ?
             st1.minSearcherRecordsMatched : st2.minSearcherRecordsMatched;
     newSMStats->maxSearcherRecordsMatched = (st1.maxSearcherRecordsMatched > st2.maxSearcherRecordsMatched) ?
             st1.maxSearcherRecordsMatched : st2.maxSearcherRecordsMatched;
     newSMStats->avgSearcherRecordsMatched = (st1.avgSearcherRecordsMatched + st2.avgSearcherRecordsMatched) / 2;
-    newSMStats->minSMCpuTime = (st1.minSMCpuTime < st2.minSMCpuTime) ?
-            st1.minSMCpuTime : st2.minSMCpuTime;
-    newSMStats->maxSMCpuTime = selfCpuTime;
-    newSMStats->avgSMCpuTime = (newSMStats->avgSMCpuTime + selfCpuTime) / 2;         // TODO: maybe not this
+    newSMStats->minSMTime = (st1.minSMTime < st2.minSMTime) ?
+            st1.minSMTime : st2.minSMTime;
+    newSMStats->maxSMTime = selfTime;
+    newSMStats->avgSMTime = (selfTime / newSMStats->totalSMNum) +
+            ((st1.avgSMTime) * (st1.totalSMNum / (double) newSMStats->totalSMNum)) +
+            ((st2.avgSMTime) * (st2.totalSMNum / (double) newSMStats->totalSMNum));
     return newSMStats;
 }
 
 void printSMStats(SMStats st) {
     printf("Splitter-Merger Stats:\n");
-//    printf(" Min Searcher CPU Time: %f\n", st.minSearcherCpuTime);
-//    printf(" Max Searcher CPU Time: %f\n", st.maxSearcherCpuTime);
-//    printf(" Average Searcher CPU Time: %f\n", st.avgSearcherCpuTime);
+//    printf(" Min Searcher Time: %f\n", st.minSearcherTime);
+//    printf(" Max Searcher Time: %f\n", st.maxSearcherTime);
+//    printf(" Average Searcher Time: %f\n", st.avgSearcherTime);
 //    printf(" Min Searcher Records matched: %d\n", st.minSearcherRecordsMatched);
 //    printf(" Max Searcher Records matched: %d\n", st.maxSearcherRecordsMatched);
 //    printf(" Average Searcher Records matched: %d\n", st.avgSearcherRecordsMatched);
-//    printf(" Min Splitter-Merger CPU Time: %f\n", st.minSMCpuTime);
-//    printf(" Max Splitter-Merger CPU Time: %f\n", st.maxSMCpuTime);
-//    printf(" Average Splitter-Merger CPU Time: %f\n", st.avgSMCpuTime);
+//    printf(" Min Splitter-Merger Time: %f\n", st.minSMTime);
+//    printf(" Max Splitter-Merger Time: %f\n", st.maxSMTime);
+//    printf(" Average Splitter-Merger Time: %f\n", st.avgSMTime);
     printf("                          |    Min   |    Max   |    Avg   |\n");
     printf("      Searcher Times      | %8f | %8f | %8f |\n",
-            st.minSearcherCpuTime, st.maxSearcherCpuTime, st.avgSearcherCpuTime);
-    printf(" Searcher Records Matched | %8d | %8d | %8f |\n",
+            st.minSearcherTime, st.maxSearcherTime, st.avgSearcherTime);
+    printf(" Searcher Records Matched | %8d | %8d | %8.3f |\n",
             st.minSearcherRecordsMatched, st.maxSearcherRecordsMatched, st.avgSearcherRecordsMatched);
     printf("   Splitter-Merger Times  | %8f | %8f | %8f |\n",
-            st.minSMCpuTime, st.maxSMCpuTime, st.avgSMCpuTime);
+            st.minSMTime, st.maxSMTime, st.avgSMTime);
     printf("      Searchers Number    | %30d |\n", st.totalSearchersNum);
     printf("   Total Records Matched  | %30d |\n", st.totalRecordsMatched);
 }

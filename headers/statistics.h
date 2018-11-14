@@ -2,26 +2,27 @@
 #define OS_2_STATISTICS_H
 
 typedef struct {
-    double cpuTime;
+    double searcherTime;
     int recordsMatched;
 } SearcherStats;
 
 typedef struct {
     int totalSearchersNum;
+    int totalSMNum;
     int totalRecordsMatched;
-    double minSearcherCpuTime;
-    double maxSearcherCpuTime;
-    double avgSearcherCpuTime;
+    double minSearcherTime;
+    double maxSearcherTime;
+    double avgSearcherTime;
     int minSearcherRecordsMatched;
     int maxSearcherRecordsMatched;
     double avgSearcherRecordsMatched;
-    double minSMCpuTime;
-    double maxSMCpuTime;
-    double avgSMCpuTime;
+    double minSMTime;
+    double maxSMTime;
+    double avgSMTime;
 } SMStats;
 
-SMStats *combineSearcherStats(SearcherStats st1, SearcherStats st2, double selfCpuTime);
-SMStats *combineSMStats(SMStats st1, SMStats st2, double selfCpuTime);
+SMStats *combineSearcherStats(SearcherStats st1, SearcherStats st2, double selfTime);
+SMStats *combineSMStats(SMStats st1, SMStats st2, double selfTime);
 void printSMStats(SMStats st);
 
 #endif

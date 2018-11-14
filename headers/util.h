@@ -21,4 +21,6 @@ enum ErrorCodes {
     EC_UNKNOWN   // An unexpected error
 };
 
+long long getCurrentTime(void);
+
 #endif

@@ -33,11 +33,15 @@ void printRecord(FILE *fp, Record r) {
     if (fp == NULL) fp = stdout;
     fprintf(fp, "%ld | %s %s | %s %d %s %s | %f\n", r.am, r.fisrtName, r.lastName,
            r.street, r.streetNum, r.city, r.zipCode, r.salary);
+    /* fflush() is needed because even stdout is not automatically fflush'd on
+     * newlines when redirected as we're doing in this program and we would
+     * otherwise risk overflowing pipes! */
+    fflush(fp);
 }
 
 /* Record List functions: */
 
-RecordList *createRecordList() {
+RecordList *createRecordList(void) {
     RecordList *rList = malloc(sizeof(RecordList));
     if (rList == NULL) return NULL;
     rList->first = rList->last = NULL;
