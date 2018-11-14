@@ -161,32 +161,33 @@ int main(int argc, char *argv[]) {
         printf("Results:\n");
         printRecordList(stdout, recordList);
     } else {
-        //    int sorterfd[2];
-    //    pipe(sorterfd);
-    //    pid_t sorterPid = fork();
-    //    if (sorterPid < 0) {
-    //        perror("[Root] fork");
-    //        // TODO: frees?
-    //        return EC_FORK;
-    //    } else if (sorterPid == 0) {
-    //        dup2(sorterfd[READ_END], STDIN_FILENO);
-    //        close(sorterfd[READ_END]);
-    ////        dup2(sorterfd[WRITE_END], STDOUT_FILENO);
-    //        close(sorterfd[WRITE_END]);
-    //        execlp("/usr/bin/sort", "sort", "-n", (char *) NULL);
-    //        perror("[Root] execl");
-    //        return EC_EXEC;
-    //    }
-    //    FILE* fp = fdopen(sorterfd[WRITE_END], "w");
-    //    fclose(fp);
-    //    wait(NULL);
-
-        printRecordList(stdout, recordList);
+        int sorterfd[2];
+        pipe(sorterfd);
+        pid_t sorterPid = fork();
+        if (sorterPid < 0) {
+            perror("[Root] fork");
+            deleteRecordList(&recordList);
+            return EC_FORK;
+        } else if (sorterPid == 0) {
+            dup2(sorterfd[READ_END], STDIN_FILENO);
+            close(sorterfd[READ_END]);
+            close(sorterfd[WRITE_END]);
+            printf("Results:\n");
+            execlp("/usr/bin/sort", "sort", "-n", (char *) NULL);
+            perror("[Root] execlp");
+            deleteRecordList(&recordList);
+            return EC_EXEC;
+        }
+        FILE* sorterfp = fdopen(sorterfd[WRITE_END], "w");
+        printRecordList(sorterfp, recordList);
+        fclose(sorterfp);
+        wait(NULL);
     }
+    deleteRecordList(&recordList);
 
-    printf("Stats:\n");
+    printf("\nStats:\n");
     printSMStats(completeSMStats);
-    printf("\nSIGUSR2 received: %d\n", sigusr2Received);
+    printf("SIGUSR2 received: %d\n", sigusr2Received);
 
     return EC_OK;
 }

@@ -5,8 +5,8 @@
 #define MAX_NUM_STRING_SIZE 22
 
 // For pipes:
-#define WRITE_END 1
 #define READ_END 0
+#define WRITE_END 1
 
 enum ErrorCodes {
     EC_OK,       // Success
