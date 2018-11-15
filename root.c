@@ -126,13 +126,13 @@ int main(int argc, char *argv[]) {
     SMStats completeSMStats;
     bool smDone = false;
     while (!smDone) {
-        if (read(smfd[READ_END], &nextStructIndicator, sizeof(int)) < 0) {
+        if (! readFromPipe(smfd[READ_END], &nextStructIndicator, sizeof(int))) {
             perror("[Root] Error reading from pipe");
             deleteRecordList(&recordList);
             return EC_PIPE;
         }
         if (nextStructIndicator == 0) {     // Next struct is a Record
-            if (read(smfd[READ_END], &currRecord, sizeof(Record)) < 0) {
+            if (! readFromPipe(smfd[READ_END], &currRecord, sizeof(Record))) {
                 perror("[Root] Error reading from pipe");
                 deleteRecordList(&recordList);
                 return EC_PIPE;
@@ -143,7 +143,7 @@ int main(int argc, char *argv[]) {
                 return EC_MEM;
             }
         } else if (nextStructIndicator == 2) {        // Next struct is SMStats
-            if (read(smfd[READ_END], &completeSMStats, sizeof(SMStats)) < 0) {
+            if (! readFromPipe(smfd[READ_END], &completeSMStats, sizeof(SMStats))) {
                 perror("[Root] Error reading from pipe");
                 deleteRecordList(&recordList);
                 return EC_PIPE;
@@ -155,7 +155,7 @@ int main(int argc, char *argv[]) {
             return EC_INVALID;
         }
     }
-    wait(NULL);
+    wait(NULL);      // wait for "root" Spiltter-Merger to complete
 
     if (recordList->first == NULL) {
         printf("No records matched!\n");

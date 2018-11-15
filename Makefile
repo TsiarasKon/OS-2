@@ -1,13 +1,13 @@
 CC      = gcc
-OBJECTS = record.o statistics.o searcher.o splitter_merger.o
-SOURCES = record.c statistics.c searcher.c splitter_merger.c
+OBJECTS = record.o statistics.o searcher.o splitter_merger.o util.o
+SOURCES = record.c statistics.c searcher.c splitter_merger.c util.c
 HEADERS = headers/record.h headers/statistics.h headers/util.h
 CFLAGS  = -g3 -pedantic -std=c99 -Wall -Wextra
 
 
 all: searcher splitter_merger root
 
-searcher: searcher.o record.o statistics.o $(HEADERS)
+searcher: searcher.o record.o statistics.o util.o $(HEADERS)
 	$(CC) $(CFLAGS) searcher.o record.o statistics.o -o searcher
 
 splitter_merger: splitter_merger.o searcher $(HEADERS)
@@ -31,6 +31,9 @@ record.o: record.c headers/record.h headers/util.h
 
 statistics.o: statistics.c headers/statistics.h
 	$(CC) -c $(CFLAGS) statistics.c
+
+util.o: util.c headers/util.h
+	$(CC) -c $(CFLAGS) util.c
 
 
 clean:

@@ -8,6 +8,8 @@
 #define READ_END 0
 #define WRITE_END 1
 
+#include <stdbool.h>
+
 enum ErrorCodes {
     EC_OK,       // Success
     EC_ARG,      // Invalid command line arguments
@@ -22,5 +24,6 @@ enum ErrorCodes {
 };
 
 long long getCurrentTime(void);
+bool readFromPipe(int fd, void *buffer, unsigned int bufSize);
 
 #endif

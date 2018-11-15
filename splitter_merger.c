@@ -131,12 +131,12 @@ int main(int argc, char *argv[]) {
         }
         for (int i = 0; i < 2; i++) {       // poll both children
             if (pollfd[i].revents & POLLIN && !child_completed[i]) {       // we can read from child i
-                if (read(pollfd[i].fd, &nextStructIndicator, sizeof(int)) < 0) {
+                if (! readFromPipe(pollfd[i].fd, &nextStructIndicator, sizeof(int))) {
                     perror("[Splitter-Merger] Error reading from pipe");
                     return EC_PIPE;
                 }
                 if (nextStructIndicator == 0) {     // Next struct is a Record
-                    if (read(pollfd[i].fd, &currRecord, sizeof(Record)) < 0) {
+                    if (! readFromPipe(pollfd[i].fd, &currRecord, sizeof(Record))) {
                         perror("[Splitter-Merger] Error reading from pipe");
                         return EC_PIPE;
                     }
@@ -144,13 +144,13 @@ int main(int argc, char *argv[]) {
                     fwrite(&currRecord, sizeof(Record), 1, stdout);
                     fflush(stdout);
                 } else if (nextStructIndicator == 1) {        // Next struct is SearcherStats
-                    if (read(pollfd[i].fd, &searcherStats[i], sizeof(SearcherStats)) < 0) {
+                    if (! readFromPipe(pollfd[i].fd, &searcherStats[i], sizeof(SearcherStats))) {
                         perror("[Splitter-Merger] Error reading from pipe");
                         return EC_PIPE;
                     }
                     child_completed[i] = true;
                 } else if (nextStructIndicator == 2) {        // Next struct is SMStats
-                    if (read(pollfd[i].fd, &smStats[i], sizeof(SMStats)) < 0) {
+                    if (! readFromPipe(pollfd[i].fd, &smStats[i], sizeof(SMStats))) {
                         perror("[Splitter-Merger] Error reading from pipe");
                         return EC_PIPE;
                     }
@@ -182,7 +182,6 @@ int main(int argc, char *argv[]) {
 
     close(fd1[READ_END]);
     close(fd2[READ_END]);
-    // wait for both children:
     wait(NULL);
     wait(NULL);
     return EC_OK;

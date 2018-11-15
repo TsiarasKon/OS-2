@@ -22,13 +22,6 @@ bool searchRecord(Record r, char *pattern) {
     return false;
 }
 
-bool readRecord(int fd, Record *record) {       // TODO: improve and use
-    if (read(fd, record, sizeof(Record)) < 0) {
-        return false;
-    }
-    return true;
-}
-
 void printRecord(FILE *fp, Record r) {
     if (fp == NULL) fp = stdout;
     fprintf(fp, "%ld | %s %s | %s %d %s %s | %f\n", r.am, r.fisrtName, r.lastName,
