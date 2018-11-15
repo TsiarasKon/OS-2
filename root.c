@@ -22,6 +22,7 @@ void sigusr2Handler() {
 }
 
 int main(int argc, char *argv[]) {
+    long long startTime = getCurrentTime();
     const char argErrorMsg[] = "Invalid arguments. Please run \"$ ./myfind -h Height -d Datafile -p Pattern [-s]\"\n";
     if (argc != 7 && argc != 8) {
         printf("%s", argErrorMsg);
@@ -69,7 +70,7 @@ int main(int argc, char *argv[]) {
     if (st.st_size == 0) {
         fprintf(stderr, "[Root] Warning: Datafile is empty.\n");
     }
-    int recordsNum = (int) (st.st_size / sizeof(Record));
+    long recordsNum = st.st_size / sizeof(Record);
     // Check if not whole division - recordsNum wouldn't have been an integer:
     if (recordsNum != (st.st_size / (double) sizeof(Record))) {
         fprintf(stderr, "[Root] Invalid Datafile format: Datafile's size is not a multiple of Record's size.");
@@ -98,7 +99,7 @@ int main(int argc, char *argv[]) {
         char rangeStartStr[MAX_NUM_STRING_SIZE];
         sprintf(rangeStartStr, "%d", 0);
         char rangeEndStr[MAX_NUM_STRING_SIZE];
-        sprintf(rangeEndStr, "%d", recordsNum - 1);
+        sprintf(rangeEndStr, "%ld", recordsNum - 1);
         char rootPidStr[MAX_NUM_STRING_SIZE];
         sprintf(rootPidStr, "%d", getppid());
         char heightStr[2];
@@ -187,9 +188,8 @@ int main(int argc, char *argv[]) {
     }
     deleteRecordList(&recordList);
 
-    printf("\nStats:\n");
-    printSMStats(completeSMStats);
-    printf("SIGUSR2 received: %d\n", sigusr2Received);
+    double turnaroundTime = (getCurrentTime() - startTime) / 1000.0;
+    printRootStats(completeSMStats, recordsNum, sigusr2Received, turnaroundTime);
 
     return EC_OK;
 }

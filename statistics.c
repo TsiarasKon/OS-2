@@ -54,24 +54,55 @@ SMStats *combineSMStats(SMStats st1, SMStats st2, double selfTime) {
     return newSMStats;
 }
 
-void printSMStats(SMStats st) {
-    printf("Splitter-Merger Stats:\n");
-//    printf(" Min Searcher Time: %f\n", st.minSearcherTime);
-//    printf(" Max Searcher Time: %f\n", st.maxSearcherTime);
-//    printf(" Average Searcher Time: %f\n", st.avgSearcherTime);
-//    printf(" Min Searcher Records matched: %d\n", st.minSearcherRecordsMatched);
-//    printf(" Max Searcher Records matched: %d\n", st.maxSearcherRecordsMatched);
-//    printf(" Average Searcher Records matched: %d\n", st.avgSearcherRecordsMatched);
-//    printf(" Min Splitter-Merger Time: %f\n", st.minSMTime);
-//    printf(" Max Splitter-Merger Time: %f\n", st.maxSMTime);
-//    printf(" Average Splitter-Merger Time: %f\n", st.avgSMTime);
-    printf("                          |    Min   |    Max   |    Avg   |\n");
-    printf("      Searcher Times      | %8f | %8f | %8f |\n",
-            st.minSearcherTime, st.maxSearcherTime, st.avgSearcherTime);
-    printf(" Searcher Records Matched | %8d | %8d | %8.3f |\n",
-            st.minSearcherRecordsMatched, st.maxSearcherRecordsMatched, st.avgSearcherRecordsMatched);
-    printf("   Splitter-Merger Times  | %8f | %8f | %8f |\n",
-            st.minSMTime, st.maxSMTime, st.avgSMTime);
-    printf("      Searchers Number    | %30d |\n", st.totalSearchersNum);
-    printf("   Total Records Matched  | %30d |\n", st.totalRecordsMatched);
+void printSMStats(SMStats smStats) {
+    printf("\nSplitter-Merger Statistics:\n");
+    printf("===================================================\n");
+    printf("    Splitter-Mergers Number   |  %d \n", smStats.totalSMNum);
+    printf("---------------------------------------------------\n");
+    printf("        Searchers Number      |  %d \n", smStats.totalSearchersNum);
+    printf("---------------------------------------------------\n");
+    printf("     Total Records Matched    |  %ld \n", smStats.totalRecordsMatched);
+    printf("---------------------------------------------------\n");
+    printf("                              | Min: %ld\n", smStats.minSearcherRecordsMatched);
+    printf(" Records matched per Searcher | Max: %ld\n", smStats.maxSearcherRecordsMatched);
+    printf("                              | Avg: %.2f\n", smStats.avgSearcherRecordsMatched);
+    printf("---------------------------------------------------\n");
+    printf("                              | Min: %.3f sec\n", smStats.minSearcherTime);
+    printf("        Searcher Times        | Max: %.3f sec\n", smStats.maxSearcherTime);
+    printf("                              | Avg: %.3f sec\n", smStats.avgSearcherTime);
+    printf("---------------------------------------------------\n");
+    printf("                              | Min: %.3f sec\n", smStats.minSMTime);
+    printf("     Splitter-Merger Times    | Max: %.3f sec\n", smStats.maxSMTime);
+    printf("                              | Avg: %.3f sec\n", smStats.avgSMTime);
+    printf("---------------------------------------------------\n");
+    printf("===================================================\n");
+}
+
+void printRootStats(SMStats smStats, long totalRecordsNum, int sigusr2Received, double turnaroundTime) {
+    printf("\nStatistics:\n");
+    printf("===================================================\n");
+    printf("    Splitter-Mergers Number   |  %d \n", smStats.totalSMNum);
+    printf("---------------------------------------------------\n");
+    printf("        Searchers Number      |  %d \n", smStats.totalSearchersNum);
+    printf("---------------------------------------------------\n");
+    printf("   Total Records in Datafile  |  %ld \n", totalRecordsNum);
+    printf("---------------------------------------------------\n");
+    printf("     Total Records Matched    |  %ld \n", smStats.totalRecordsMatched);
+    printf("---------------------------------------------------\n");
+    printf("                              | Min: %ld\n", smStats.minSearcherRecordsMatched);
+    printf(" Records Matched per Searcher | Max: %ld\n", smStats.maxSearcherRecordsMatched);
+    printf("                              | Avg: %.3f\n", smStats.avgSearcherRecordsMatched);
+    printf("---------------------------------------------------\n");
+    printf("                              | Min: %.3f sec\n", smStats.minSearcherTime);
+    printf("        Searcher Times        | Max: %.3f sec\n", smStats.maxSearcherTime);
+    printf("                              | Avg: %.3f sec\n", smStats.avgSearcherTime);
+    printf("---------------------------------------------------\n");
+    printf("                              | Min: %.3f sec\n", smStats.minSMTime);
+    printf("     Splitter-Merger Times    | Max: %.3f sec\n", smStats.maxSMTime);
+    printf("                              | Avg: %.3f sec\n", smStats.avgSMTime);
+    printf("---------------------------------------------------\n");
+    printf("        Turnaround Time       |  %.3f sec \n", turnaroundTime);
+    printf("---------------------------------------------------\n");
+    printf("   SIGUSR2 Signals Received   |  %d \n", sigusr2Received);
+    printf("===================================================\n");
 }

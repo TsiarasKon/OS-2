@@ -22,18 +22,18 @@ int main(int argc, char *argv[]) {
     }
     char *datafile = argv[1];
     char *strtolEndptr = NULL;
-    int rangeStart = (int) strtol(argv[2], &strtolEndptr, 10);
+    long rangeStart = strtol(argv[2], &strtolEndptr, 10);
     if (*strtolEndptr != '\0' || rangeStart < 0) {
         fprintf(stderr, "[Searcher] Invalid arguments: rangeStart must be a non-negative integer.\n");
         return EC_ARG;
     }
-    int rangeEnd = (int) strtol(argv[3], &strtolEndptr, 10);
+    long rangeEnd = strtol(argv[3], &strtolEndptr, 10);
     if (*strtolEndptr != '\0' || rangeEnd < rangeStart) {
         fprintf(stderr, "[Searcher] Invalid arguments: rangeEnd must be an integer greater than or equal to rangeStart.\n");
         return EC_ARG;
     }
     char *pattern = argv[4];
-    int rootPid = (int) strtol(argv[5], &strtolEndptr, 10);
+    pid_t rootPid = (pid_t) strtol(argv[5], &strtolEndptr, 10);
     if (*strtolEndptr != '\0' || rootPid < 2) {
         fprintf(stderr, "[Searcher] Invalid arguments: invalid Root pid.\n");
         return EC_ARG;
@@ -49,7 +49,7 @@ int main(int argc, char *argv[]) {
         perror("[Searcher] stat");
         return EC_FILE;
     }
-    if ( st.st_size < (unsigned int) ((rangeEnd + 1) * sizeof(Record)) ) {
+    if ( st.st_size < (unsigned long) ((rangeEnd + 1) * sizeof(Record)) ) {
         fprintf(stderr, "[Searcher] rangeEnd surpasses file end.\n");
         return EC_INVALID;
     }
@@ -59,7 +59,7 @@ int main(int argc, char *argv[]) {
     stats.recordsMatched = 0;
     int nextStructIndicator = 0;        // 0 for Record, 1 for Statistics
     Record currRecord;
-    for (int i = rangeStart; i <= rangeEnd; i++) {
+    for (long i = rangeStart; i <= rangeEnd; i++) {
         fread(&currRecord, sizeof(Record), 1, datafp);
         if (searchRecord(currRecord, pattern)) {
             // if Record matched Pattern, write it to stdout
@@ -71,7 +71,7 @@ int main(int argc, char *argv[]) {
     }
     fclose(datafp);
 
-    // Write stats to stdout:
+    // Write stats:
     stats.searcherTime = (getCurrentTime() - startTime) / 1000.0;       // in seconds
     nextStructIndicator = 1;
     fwrite(&nextStructIndicator, sizeof(int), 1, stdout);

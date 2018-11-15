@@ -3,18 +3,18 @@
 
 typedef struct {
     double searcherTime;
-    int recordsMatched;
+    long recordsMatched;
 } SearcherStats;
 
 typedef struct {
     int totalSearchersNum;
     int totalSMNum;
-    int totalRecordsMatched;
+    long totalRecordsMatched;
     double minSearcherTime;
     double maxSearcherTime;
     double avgSearcherTime;
-    int minSearcherRecordsMatched;
-    int maxSearcherRecordsMatched;
+    long minSearcherRecordsMatched;
+    long maxSearcherRecordsMatched;
     double avgSearcherRecordsMatched;
     double minSMTime;
     double maxSMTime;
@@ -23,6 +23,7 @@ typedef struct {
 
 SMStats *combineSearcherStats(SearcherStats st1, SearcherStats st2, double selfTime);
 SMStats *combineSMStats(SMStats st1, SMStats st2, double selfTime);
-void printSMStats(SMStats st);
+void printSMStats(SMStats smStats);
+void printRootStats(SMStats smStats, long totalRecordsNum, int sigusr2Received, double turnaroundTime);
 
 #endif

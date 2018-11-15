@@ -23,12 +23,12 @@ int main(int argc, char *argv[]) {
     }
     char *datafile = argv[1];
     char *strtolEndptr = NULL;
-    int rangeStart = (int) strtol(argv[2], &strtolEndptr, 10);
+    long rangeStart = strtol(argv[2], &strtolEndptr, 10);
     if (*strtolEndptr != '\0' || rangeStart < 0) {
         fprintf(stderr, "[Splitter-Merger] Invalid arguments: rangeStart must be a non-negative integer.\n");
         return EC_ARG;
     }
-    int rangeEnd = (int) strtol(argv[3], &strtolEndptr, 10);
+    long rangeEnd = strtol(argv[3], &strtolEndptr, 10);
     if (*strtolEndptr != '\0' || rangeEnd < rangeStart) {
         fprintf(stderr, "[Splitter-Merger] Invalid arguments: rangeEnd must be an integer greater than or equal to rangeStart.\n");
         return EC_ARG;
@@ -44,7 +44,7 @@ int main(int argc, char *argv[]) {
         fprintf(stderr, "[Splitter-Merger] Invalid arguments: Skew can only be 0 or 1.\n");
         return EC_ARG;
     }
-    int rootPid = (int) strtol(argv[7], &strtolEndptr, 10);
+    pid_t rootPid = (pid_t) strtol(argv[7], &strtolEndptr, 10);
     if (*strtolEndptr != '\0' || rootPid < 2) {
         fprintf(stderr, "[Splitter-Merger] Invalid arguments: invalid Root pid.\n");
         return EC_ARG;
@@ -52,7 +52,7 @@ int main(int argc, char *argv[]) {
 
     int fd1[2];
     pipe(fd1);
-    int rangeSplit = (rangeStart + rangeEnd) / 2;         // TODO: assuming skew == 0
+    long rangeSplit = (rangeStart + rangeEnd) / 2;         // TODO: assuming skew == 0
     char rangeStartStr[MAX_NUM_STRING_SIZE];
     char rangeEndStr[MAX_NUM_STRING_SIZE];
     char rootPidStr[MAX_NUM_STRING_SIZE];
@@ -66,8 +66,8 @@ int main(int argc, char *argv[]) {
         dup2(fd1[WRITE_END], STDOUT_FILENO);
         close(fd1[READ_END]);
         close(fd1[WRITE_END]);
-        sprintf(rangeStartStr, "%d", rangeStart);
-        sprintf(rangeEndStr, "%d", rangeSplit);
+        sprintf(rangeStartStr, "%ld", rangeStart);
+        sprintf(rangeEndStr, "%ld", rangeSplit);
         if (height == 1) {
             execlp("./searcher", "searcher", datafile, rangeStartStr,
                    rangeEndStr, pattern, rootPidStr, (char *) NULL);
@@ -95,8 +95,8 @@ int main(int argc, char *argv[]) {
         dup2(fd2[WRITE_END], STDOUT_FILENO);
         close(fd2[READ_END]);
         close(fd2[WRITE_END]);
-        sprintf(rangeStartStr, "%d", rangeSplit + 1);
-        sprintf(rangeEndStr, "%d", rangeEnd);
+        sprintf(rangeStartStr, "%ld", rangeSplit + 1);
+        sprintf(rangeEndStr, "%ld", rangeEnd);
         if (height == 1) {
             execl("./searcher", "searcher", datafile, rangeStartStr,
                    rangeEndStr, pattern, rootPidStr, (char *) NULL);
