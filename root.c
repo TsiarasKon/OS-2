@@ -22,7 +22,7 @@ void sigusr2Handler() {
 }
 
 int main(int argc, char *argv[]) {
-    long long startTime = getCurrentTime();
+    long long rootStartTime = getCurrentTime();
     const char argErrorMsg[] = "Invalid arguments. Please run \"$ ./myfind -h Height -d Datafile -p Pattern [-s]\"\n";
     if (argc != 7 && argc != 8) {
         printf("%s", argErrorMsg);
@@ -64,7 +64,7 @@ int main(int argc, char *argv[]) {
 
     struct stat st;
     if (stat(datafile, &st) != 0) {     // file may not exist, be inaccessible, etc
-        perror("[Root] stat");
+        perror("Datafile is inaccessible.");
         return EC_FILE;
     }
     if (st.st_size == 0) {
@@ -73,7 +73,7 @@ int main(int argc, char *argv[]) {
     long recordsNum = st.st_size / sizeof(Record);
     // Check if not whole division - recordsNum wouldn't have been an integer:
     if (recordsNum != (st.st_size / (double) sizeof(Record))) {
-        fprintf(stderr, "[Root] Invalid Datafile format: Datafile's size is not a multiple of Record's size.");
+        fprintf(stderr, "Invalid Datafile format: Datafile's size is not a multiple of Record's size.");
         return EC_INVALID;
     }
     int searchersNum = (1 << height);      // == 2^height
@@ -117,8 +117,7 @@ int main(int argc, char *argv[]) {
     }
     close(smfd[WRITE_END]);
 
-    printf("Searching Records from '%s' containing \"%s\" in any field ...\n",
-            datafile, pattern);
+    printf("Searching Records from '%s' containing \"%s\" in any field ...\n\n", datafile, pattern);
 
     RecordList *recordList = createRecordList();
     if (recordList == NULL) {
@@ -161,11 +160,16 @@ int main(int argc, char *argv[]) {
     }
     wait(NULL);      // wait for "root" Spiltter-Merger to complete
 
+    long long sorterStartTime = getCurrentTime();
+    double sorterTime = -1;
     if (recordList->first == NULL) {
         printf("No records matched!\n");
     } else if (recordList->first == recordList->last) {     // only one result - no reason to sort
         printf("Matching Records:\n");
+        prettyPrintResultSepLine();
+        prettyPrintResultHeader();
         printRecordList(stdout, recordList);
+        prettyPrintResultSepLine();
     } else {
         int sorterfd[2];
         pipe(sorterfd);
@@ -179,6 +183,8 @@ int main(int argc, char *argv[]) {
             close(sorterfd[READ_END]);
             close(sorterfd[WRITE_END]);
             printf("Matching Records:\n");
+            prettyPrintResultSepLine();
+            prettyPrintResultHeader();
             execlp("/usr/bin/sort", "sort", "-n", (char *) NULL);
             perror("[Root] execlp");
             deleteRecordList(&recordList);
@@ -188,11 +194,13 @@ int main(int argc, char *argv[]) {
         printRecordList(sorterfp, recordList);
         fclose(sorterfp);
         wait(NULL);
+        prettyPrintResultSepLine();
+        sorterTime = (getCurrentTime() - sorterStartTime) / 1000.0;
     }
     deleteRecordList(&recordList);
 
-    double turnaroundTime = (getCurrentTime() - startTime) / 1000.0;
-    printRootStats(completeSMStats, recordsNum, sigusr2Received, turnaroundTime);
+    double turnaroundTime = (getCurrentTime() - rootStartTime) / 1000.0;
+    prettyPrintRootStats(completeSMStats, recordsNum, sigusr2Received, sorterTime, turnaroundTime);
 
     return EC_OK;
 }

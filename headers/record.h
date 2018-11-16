@@ -35,5 +35,7 @@ RecordList *createRecordList(void);
 void deleteRecordList(RecordList **rList);
 bool addRecordToList(RecordList *rList, Record r);
 void printRecordList(FILE *fp, RecordList *rList);
+void prettyPrintResultSepLine(void);
+void prettyPrintResultHeader(void);
 
 #endif

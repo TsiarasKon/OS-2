@@ -54,30 +54,8 @@ SMStats *combineSMStats(SMStats st1, SMStats st2, double selfTime) {
     return newSMStats;
 }
 
-void printSMStats(SMStats smStats) {
-    printf("\nSplitter-Merger Statistics:\n");
-    printf("===================================================\n");
-    printf("    Splitter-Mergers Number   |  %d \n", smStats.totalSMNum);
-    printf("---------------------------------------------------\n");
-    printf("        Searchers Number      |  %d \n", smStats.totalSearchersNum);
-    printf("---------------------------------------------------\n");
-    printf("     Total Records Matched    |  %ld \n", smStats.totalRecordsMatched);
-    printf("---------------------------------------------------\n");
-    printf("                              | Min: %ld\n", smStats.minSearcherRecordsMatched);
-    printf(" Records matched per Searcher | Max: %ld\n", smStats.maxSearcherRecordsMatched);
-    printf("                              | Avg: %.2f\n", smStats.avgSearcherRecordsMatched);
-    printf("---------------------------------------------------\n");
-    printf("                              | Min: %.3f sec\n", smStats.minSearcherTime);
-    printf("        Searcher Times        | Max: %.3f sec\n", smStats.maxSearcherTime);
-    printf("                              | Avg: %.3f sec\n", smStats.avgSearcherTime);
-    printf("---------------------------------------------------\n");
-    printf("                              | Min: %.3f sec\n", smStats.minSMTime);
-    printf("     Splitter-Merger Times    | Max: %.3f sec\n", smStats.maxSMTime);
-    printf("                              | Avg: %.3f sec\n", smStats.avgSMTime);
-    printf("===================================================\n");
-}
-
-void printRootStats(SMStats smStats, long totalRecordsNum, int sigusr2Received, double turnaroundTime) {
+void prettyPrintRootStats(SMStats smStats, long totalRecordsNum,
+        int sigusr2Received, double sorterTime, double turnaroundTime) {
     printf("\nStatistics:\n");
     printf("===================================================\n");
     printf("    Splitter-Mergers Number   |  %d \n", smStats.totalSMNum);
@@ -99,6 +77,12 @@ void printRootStats(SMStats smStats, long totalRecordsNum, int sigusr2Received, 
     printf("                              | Min: %.3f sec\n", smStats.minSMTime);
     printf("     Splitter-Merger Times    | Max: %.3f sec\n", smStats.maxSMTime);
     printf("                              | Avg: %.3f sec\n", smStats.avgSMTime);
+    printf("---------------------------------------------------\n");
+    if (sorterTime < 0) {
+        printf("          Sorter Time         |  N/A \n");
+    } else {
+        printf("          Sorter Time         |  %.3f sec \n", sorterTime);
+    }
     printf("---------------------------------------------------\n");
     printf("        Turnaround Time       |  %.3f sec \n", turnaroundTime);
     printf("---------------------------------------------------\n");

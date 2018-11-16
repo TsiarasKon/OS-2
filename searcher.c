@@ -49,7 +49,7 @@ int main(int argc, char *argv[]) {
         perror("[Searcher] stat");
         return EC_FILE;
     }
-    if ( st.st_size < (unsigned long) ((rangeEnd + 1) * sizeof(Record)) ) {
+    if ( st.st_size < (long) ((rangeEnd + 1) * sizeof(Record)) ) {
         fprintf(stderr, "[Searcher] rangeEnd surpasses file end.\n");
         return EC_INVALID;
     }

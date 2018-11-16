@@ -15,10 +15,12 @@
   <component name="ChangeListManager">
     <list default="true" id="de60402b-91a9-49d4-874b-f225f6c008ad" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/headers/util.h" beforeDir="false" afterPath="$PROJECT_DIR$/headers/util.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/headers/record.h" beforeDir="false" afterPath="$PROJECT_DIR$/headers/record.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/headers/statistics.h" beforeDir="false" afterPath="$PROJECT_DIR$/headers/statistics.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/record.c" beforeDir="false" afterPath="$PROJECT_DIR$/record.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/root.c" beforeDir="false" afterPath="$PROJECT_DIR$/root.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/searcher.c" beforeDir="false" afterPath="$PROJECT_DIR$/searcher.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/splitter_merger.c" beforeDir="false" afterPath="$PROJECT_DIR$/splitter_merger.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/statistics.c" beforeDir="false" afterPath="$PROJECT_DIR$/statistics.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/util.c" beforeDir="false" afterPath="$PROJECT_DIR$/util.c" afterDir="false" />
     </list>
@@ -34,75 +36,76 @@
     <session id="-304385114">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="12" />
+          <entry key="project.closed" value="13" />
           <entry key="project.open.time.15" value="1" />
           <entry key="project.open.time.16" value="1" />
           <entry key="project.open.time.17" value="1" />
           <entry key="project.open.time.22" value="2" />
           <entry key="project.open.time.24" value="1" />
           <entry key="project.open.time.25" value="1" />
+          <entry key="project.open.time.27" value="1" />
           <entry key="project.open.time.3" value="1" />
           <entry key="project.open.time.32" value="1" />
           <entry key="project.open.time.34" value="1" />
           <entry key="project.open.time.4" value="2" />
           <entry key="project.open.time.50" value="1" />
           <entry key="project.open.time.51" value="1" />
-          <entry key="project.opened" value="14" />
+          <entry key="project.opened" value="15" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="Makefile" value="2" />
+          <entry key="Makefile" value="3" />
           <entry key="Root h5 (disassembly)" value="2" />
           <entry key="TESTnums" value="1" />
           <entry key="c" value="15" />
-          <entry key="h" value="11" />
+          <entry key="h" value="12" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="Disassembly" value="2" />
-          <entry key="ObjectiveC" value="26" />
+          <entry key="Makefile" value="1" />
+          <entry key="ObjectiveC" value="27" />
           <entry key="PLAIN_TEXT" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="Makefile" value="480" />
-          <entry key="c" value="13436" />
-          <entry key="h" value="1528" />
-          <entry key="txt" value="1546" />
+          <entry key="Makefile" value="561" />
+          <entry key="c" value="14183" />
+          <entry key="h" value="1588" />
+          <entry key="txt" value="1636" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="CMakeLists.txt" value="168" />
           <entry key="Doxygen file" value="1" />
-          <entry key="Makefile" value="383" />
-          <entry key="ObjectiveC" value="14963" />
-          <entry key="PLAIN_TEXT" value="1475" />
+          <entry key="Makefile" value="464" />
+          <entry key="ObjectiveC" value="15770" />
+          <entry key="PLAIN_TEXT" value="1565" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.3857143">
+    <splitter split-orientation="horizontal" split-proportion="0.44617298">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/headers/util.h">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="459">
-                  <caret line="27" column="18" lean-forward="true" selection-start-line="27" selection-start-column="18" selection-end-line="27" selection-end-column="18" />
+                <state relative-caret-position="391">
+                  <caret line="23" column="2" lean-forward="true" selection-start-line="23" selection-start-column="2" selection-end-line="23" selection-end-column="2" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/searcher.c">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="442">
-                  <caret line="41" column="57" selection-start-line="41" selection-start-column="57" selection-end-line="41" selection-end-column="57" />
+                <state relative-caret-position="-901">
                   <folding>
                     <element signature="e#20#39#0" expanded="true" />
                   </folding>
@@ -110,11 +113,32 @@
               </provider>
             </entry>
           </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/Makefile">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="459">
+                  <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
+                </state>
+              </provider>
+            </entry>
+          </file>
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/headers/statistics.h">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="51">
-                  <caret line="3" column="16" lean-forward="true" selection-start-line="3" selection-start-column="16" selection-end-line="3" selection-end-column="16" />
+                <state relative-caret-position="357">
+                  <caret line="21" column="10" lean-forward="true" selection-start-line="21" selection-start-column="10" selection-end-line="21" selection-end-column="10" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/headers/record.h">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="490">
+                  <caret line="38" column="33" selection-start-line="38" selection-start-column="33" selection-end-line="38" selection-end-column="33" />
+                  <folding>
+                    <element signature="e#45#65#0" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -122,8 +146,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/root.c">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="357">
-                  <caret line="78" column="57" selection-start-line="78" selection-start-column="57" selection-end-line="78" selection-end-column="57" />
+                <state relative-caret-position="373">
+                  <caret line="172" column="12" lean-forward="true" selection-start-line="172" selection-start-column="12" selection-end-line="172" selection-end-column="12" />
                   <folding>
                     <element signature="e#20#39#0" expanded="true" />
                   </folding>
@@ -135,11 +159,11 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/splitter_merger.c">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="388">
-                  <caret line="133" column="13" lean-forward="true" selection-start-line="133" selection-start-column="13" selection-end-line="133" selection-end-column="13" />
+                <state relative-caret-position="99">
+                  <caret line="204" lean-forward="true" selection-start-line="204" selection-end-line="204" />
                   <folding>
                     <element signature="e#20#37#0" expanded="true" />
                   </folding>
@@ -150,8 +174,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/util.c">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="507">
-                  <caret line="33" column="26" lean-forward="true" selection-start-line="33" selection-start-column="26" selection-end-line="33" selection-end-column="26" />
+                <state relative-caret-position="357">
+                  <caret line="21" column="1" lean-forward="true" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
                   <folding>
                     <element signature="e#0#25#0" expanded="true" />
                   </folding>
@@ -162,8 +186,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/statistics.c">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="14">
-                  <caret line="75" column="81" selection-start-line="75" selection-start-column="81" selection-end-line="75" selection-end-column="81" />
+                <state relative-caret-position="99">
+                  <caret line="61" column="68" lean-forward="true" selection-start-line="61" selection-start-column="68" selection-end-line="61" selection-end-column="68" />
                   <folding>
                     <element signature="e#0#31#0" expanded="true" />
                   </folding>
@@ -171,11 +195,11 @@
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/record.c">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="133">
-                  <caret line="14" column="37" selection-start-line="14" selection-start-column="37" selection-end-line="14" selection-end-column="37" />
+                <state relative-caret-position="1513">
+                  <caret line="89" column="137" lean-forward="true" selection-start-line="89" selection-start-column="137" selection-end-line="89" selection-end-column="137" />
                   <folding>
                     <element signature="e#0#27#0" expanded="true" />
                   </folding>
@@ -199,6 +223,7 @@
       <find>write(</find>
       <find>TODO</find>
       <find>rangeSp</find>
+      <find>DEBUG</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -216,16 +241,16 @@
         <option value="$PROJECT_DIR$/statistics.h" />
         <option value="$PROJECT_DIR$/cmake-build-debug/TESTnums.txt" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
-        <option value="$PROJECT_DIR$/record.c" />
-        <option value="$PROJECT_DIR$/headers/record.h" />
-        <option value="$PROJECT_DIR$/Makefile" />
-        <option value="$PROJECT_DIR$/headers/statistics.h" />
-        <option value="$PROJECT_DIR$/statistics.c" />
-        <option value="$PROJECT_DIR$/root.c" />
+        <option value="$PROJECT_DIR$/splitter_merger.c" />
         <option value="$PROJECT_DIR$/headers/util.h" />
         <option value="$PROJECT_DIR$/util.c" />
-        <option value="$PROJECT_DIR$/splitter_merger.c" />
         <option value="$PROJECT_DIR$/searcher.c" />
+        <option value="$PROJECT_DIR$/headers/record.h" />
+        <option value="$PROJECT_DIR$/record.c" />
+        <option value="$PROJECT_DIR$/statistics.c" />
+        <option value="$PROJECT_DIR$/headers/statistics.h" />
+        <option value="$PROJECT_DIR$/root.c" />
+        <option value="$PROJECT_DIR$/Makefile" />
       </list>
     </option>
   </component>
@@ -262,7 +287,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -284,6 +308,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -316,23 +341,23 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Root h1">
-    <configuration name="Root HUGE" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-h 5 -d ../inputs/Records1000000.bin -p ll" PASS_PARENT_ENVS_2="true" PROJECT_NAME="OS_2" TARGET_NAME="Root" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="OS_2" RUN_TARGET_NAME="Root">
+  <component name="RunManager" selected="Application.Root h2">
+    <configuration name="Root HUGE" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-h 5 -d ../inputs/Records1000000.bin -p Athens -s" PASS_PARENT_ENVS_2="true" PROJECT_NAME="OS_2" TARGET_NAME="Root" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="OS_2" RUN_TARGET_NAME="Root">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Root h1" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-h 3 -d ../inputs/Records100.bin -p ville -s" PASS_PARENT_ENVS_2="true" PROJECT_NAME="OS_2" TARGET_NAME="Root" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="OS_2" RUN_TARGET_NAME="Root">
+    <configuration name="Root h1" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-h 3 -d ../inputs/Records100.bin -p Athens -s" PASS_PARENT_ENVS_2="true" PROJECT_NAME="OS_2" TARGET_NAME="Root" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="OS_2" RUN_TARGET_NAME="Root">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Root h2" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-h 2 -d ../inputs/Records10000.bin -p Athens" PASS_PARENT_ENVS_2="true" PROJECT_NAME="OS_2" TARGET_NAME="Root" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="OS_2" RUN_TARGET_NAME="Root">
+    <configuration name="Root h2" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-h 2 -d ../inputs/Records10000.bin -p Athens -s" PASS_PARENT_ENVS_2="true" PROJECT_NAME="OS_2" TARGET_NAME="Root" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="OS_2" RUN_TARGET_NAME="Root">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Root h5" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-h 5 -d ../inputs/Records100000.bin -p Athens" PASS_PARENT_ENVS_2="true" PROJECT_NAME="OS_2" TARGET_NAME="Root" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="OS_2" RUN_TARGET_NAME="Root">
+    <configuration name="Root h5" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-h 5 -d ../inputs/Records100000.bin -p ash -s" PASS_PARENT_ENVS_2="true" PROJECT_NAME="OS_2" TARGET_NAME="Root" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="OS_2" RUN_TARGET_NAME="Root">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -391,7 +416,8 @@
       <workItem from="1541785585297" duration="1400000" />
       <workItem from="1542135773812" duration="2830000" />
       <workItem from="1542206783374" duration="12998000" />
-      <workItem from="1542301374135" duration="20940000" />
+      <workItem from="1542301374135" duration="22326000" />
+      <workItem from="1542362232507" duration="7902000" />
     </task>
     <task id="LOCAL-00001" summary="Command line argument checking">
       <created>1541170086907</created>
@@ -526,19 +552,26 @@
       <option name="project" value="LOCAL" />
       <updated>1542312569687</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Implemented skew option&#10;&#10;Arguments passed to splitter_merger had to be changed for that">
+      <created>1542327799815</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1542327799815</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="116003000" />
+    <option name="totallyTimeSpent" value="125291000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.42770168" visible="true" weight="0.14179105" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.42770168" visible="true" weight="0.1433902" />
       <window_info id="Favorites" order="1" sideWeight="0.49234137" side_tool="true" weight="0.16345347" />
-      <window_info id="Structure" order="2" sideWeight="0.57229835" side_tool="true" visible="true" weight="0.14179105" />
+      <window_info id="Structure" order="2" sideWeight="0.57229835" side_tool="true" visible="true" weight="0.1433902" />
       <window_info id="TODO" order="3" sideWeight="0.49124727" weight="0.2154233" />
       <window_info anchor="bottom" id="Messages" order="0" sideWeight="0.49946696" weight="0.24728851" />
       <window_info anchor="bottom" id="CMake" order="1" weight="0.2494577" />
@@ -586,7 +619,8 @@
     <MESSAGE value="Updated time metric&#10;&#10;* Now using actual time instead of CPU time&#10;* Also fixed &quot;Average time&quot; statistic" />
     <MESSAGE value="Improved reading from pipes" />
     <MESSAGE value="Statistics Pretty Printing&#10;&#10;+ some ints converted to long for sanity reasons" />
-    <option name="LAST_COMMIT_MESSAGE" value="Statistics Pretty Printing&#10;&#10;+ some ints converted to long for sanity reasons" />
+    <MESSAGE value="Implemented skew option&#10;&#10;Arguments passed to splitter_merger had to be changed for that" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented skew option&#10;&#10;Arguments passed to splitter_merger had to be changed for that" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/cmake-build-debug/Makefile">
@@ -610,23 +644,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cmake-build-debug/TESTnums.txt" />
-    <entry file="file://$PROJECT_DIR$/headers/record.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="17" column="43" selection-start-line="17" selection-start-column="43" selection-end-line="17" selection-end-column="43" />
-          <folding>
-            <element signature="e#45#65#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Makefile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="58" lean-forward="true" selection-start-line="16" selection-start-column="58" selection-end-line="16" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -639,27 +656,73 @@
         <state relative-caret-position="-3376" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/headers/statistics.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="16" lean-forward="true" selection-start-line="3" selection-start-column="16" selection-end-line="3" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/root.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="78" column="57" selection-start-line="78" selection-start-column="57" selection-end-line="78" selection-end-column="57" />
+        <state relative-caret-position="373">
+          <caret line="172" column="12" lean-forward="true" selection-start-line="172" selection-start-column="12" selection-end-line="172" selection-end-column="12" />
           <folding>
             <element signature="e#20#39#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/headers/record.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="490">
+          <caret line="38" column="33" selection-start-line="38" selection-start-column="33" selection-end-line="38" selection-end-column="33" />
+          <folding>
+            <element signature="e#45#65#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/headers/statistics.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="10" lean-forward="true" selection-start-line="21" selection-start-column="10" selection-end-line="21" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/searcher.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-901">
+          <folding>
+            <element signature="e#20#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/headers/util.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="23" column="2" lean-forward="true" selection-start-line="23" selection-start-column="2" selection-end-line="23" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/splitter_merger.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="204" lean-forward="true" selection-start-line="204" selection-end-line="204" />
+          <folding>
+            <element signature="e#20#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/util.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="1" lean-forward="true" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/statistics.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="14">
-          <caret line="75" column="81" selection-start-line="75" selection-start-column="81" selection-end-line="75" selection-end-column="81" />
+        <state relative-caret-position="99">
+          <caret line="61" column="68" lean-forward="true" selection-start-line="61" selection-start-column="68" selection-end-line="61" selection-end-column="68" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
@@ -668,48 +731,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/record.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="14" column="37" selection-start-line="14" selection-start-column="37" selection-end-line="14" selection-end-column="37" />
+        <state relative-caret-position="1513">
+          <caret line="89" column="137" lean-forward="true" selection-start-line="89" selection-start-column="137" selection-end-line="89" selection-end-column="137" />
           <folding>
             <element signature="e#0#27#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/headers/util.h">
+    <entry file="file://$PROJECT_DIR$/Makefile">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
-          <caret line="27" column="18" lean-forward="true" selection-start-line="27" selection-start-column="18" selection-end-line="27" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/util.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="507">
-          <caret line="33" column="26" lean-forward="true" selection-start-line="33" selection-start-column="26" selection-end-line="33" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/splitter_merger.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="388">
-          <caret line="133" column="13" lean-forward="true" selection-start-line="133" selection-start-column="13" selection-end-line="133" selection-end-column="13" />
-          <folding>
-            <element signature="e#20#37#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/searcher.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="41" column="57" selection-start-line="41" selection-start-column="57" selection-end-line="41" selection-end-column="57" />
-          <folding>
-            <element signature="e#20#39#0" expanded="true" />
-          </folding>
+          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
         </state>
       </provider>
     </entry>

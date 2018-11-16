@@ -8,7 +8,7 @@ bool readFromPipe(int fd, void *buffer, unsigned int bufSize) {
     size_t totalRead = 0;
     ssize_t numRead;
     while (true) {
-        numRead = read(fd, buffer + totalRead, bufSize - totalRead);
+        numRead = read(fd, (char *) buffer + totalRead, bufSize - totalRead);
         if (numRead < 0) {
             /* Added protection from signals just in case, eventhough
              * sigaction()'s SA_RESTART flag should be enough.

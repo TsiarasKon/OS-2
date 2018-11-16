@@ -24,8 +24,8 @@ bool searchRecord(Record r, char *pattern) {
 
 void printRecord(FILE *fp, Record r) {
     if (fp == NULL) fp = stdout;
-    fprintf(fp, "%ld | %s %s | %s %d %s %s | %f\n", r.am, r.fisrtName, r.lastName,
-           r.street, r.streetNum, r.city, r.zipCode, r.salary);
+    fprintf(fp, "%10ld | %15s | %18s | %15s | %6d | %18s | %7s | %9.2f\n", r.am,
+            r.fisrtName, r.lastName, r.street, r.streetNum, r.city, r.zipCode, r.salary);
     /* fflush() is needed because even stdout is not automatically fflush'd on
      * newlines when redirected as we're doing in this program and we would
      * otherwise risk overflowing pipes! */
@@ -37,7 +37,8 @@ void printRecord(FILE *fp, Record r) {
 RecordList *createRecordList(void) {
     RecordList *rList = malloc(sizeof(RecordList));
     if (rList == NULL) return NULL;
-    rList->first = rList->last = NULL;
+    rList->first = NULL;
+    rList->last = NULL;
     return rList;
 }
 
@@ -65,6 +66,7 @@ bool addRecordToList(RecordList *rList, Record r) {
     newR->record = malloc(sizeof(Record));
     if (newR->record == NULL) return false;
     memcpy(newR->record, &r, sizeof(Record));
+    newR->next = NULL;
     if (rList->first == NULL) {
         rList->first = rList->last = newR;
     } else {
@@ -75,10 +77,20 @@ bool addRecordToList(RecordList *rList, Record r) {
 }
 
 void printRecordList(FILE *fp, RecordList *rList) {
+    if (rList == NULL) return;
     if (fp == NULL) fp = stdout;
     RecordListNode *currentR = rList->first;
     while (currentR != NULL) {
         printRecord(fp, *(currentR->record));
         currentR = currentR->next;
     }
+}
+
+void prettyPrintResultSepLine(void) {
+    printf("=========================================================================================================================\n");
+}
+
+void prettyPrintResultHeader(void) {
+    printf("     AM    |    First Name   |      Last Name     |      Street     | St.Num |        City        | ZipCode |   Salary   \n");
+    printf("-------------------------------------------------------------------------------------------------------------------------\n");
 }

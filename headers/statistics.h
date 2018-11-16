@@ -23,7 +23,7 @@ typedef struct {
 
 SMStats *combineSearcherStats(SearcherStats st1, SearcherStats st2, double selfTime);
 SMStats *combineSMStats(SMStats st1, SMStats st2, double selfTime);
-void printSMStats(SMStats smStats);
-void printRootStats(SMStats smStats, long totalRecordsNum, int sigusr2Received, double turnaroundTime);
+void prettyPrintRootStats(SMStats smStats, long totalRecordsNum,
+        int sigusr2Received, double sorterTime, double turnaroundTime);
 
 #endif
