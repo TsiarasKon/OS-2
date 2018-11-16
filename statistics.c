@@ -74,7 +74,6 @@ void printSMStats(SMStats smStats) {
     printf("                              | Min: %.3f sec\n", smStats.minSMTime);
     printf("     Splitter-Merger Times    | Max: %.3f sec\n", smStats.maxSMTime);
     printf("                              | Avg: %.3f sec\n", smStats.avgSMTime);
-    printf("---------------------------------------------------\n");
     printf("===================================================\n");
 }
 

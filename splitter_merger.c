@@ -7,6 +7,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <wait.h>
+#include <sys/stat.h>
 #include <sys/types.h>
 
 #include "headers/record.h"
@@ -14,37 +15,42 @@
 #include "headers/util.h"
 
 /* Expected argv arguments, in that order:
- * datafile, rangeStart, rangeEnd, searchPattern, height, skew, rootPid */
+ * datafile, searchersNum, firstSearcher, lastSearcher, searchPattern, height, skew, rootPid */
 int main(int argc, char *argv[]) {
     long long startTime = getCurrentTime();
-    if (argc != 8) {
+    if (argc != 9) {
         fprintf(stderr, "[Splitter-Merger] Invalid number of arguments.\n");
         return EC_ARG;
     }
     char *datafile = argv[1];
     char *strtolEndptr = NULL;
-    long rangeStart = strtol(argv[2], &strtolEndptr, 10);
-    if (*strtolEndptr != '\0' || rangeStart < 0) {
-        fprintf(stderr, "[Splitter-Merger] Invalid arguments: rangeStart must be a non-negative integer.\n");
+    int searchersNum = (int) strtol(argv[2], &strtolEndptr, 10);
+    if (*strtolEndptr != '\0' || searchersNum < 2) {
+        fprintf(stderr, "[Splitter-Merger] Invalid arguments: searchersNum must be an integer greater than 1.\n");
         return EC_ARG;
     }
-    long rangeEnd = strtol(argv[3], &strtolEndptr, 10);
-    if (*strtolEndptr != '\0' || rangeEnd < rangeStart) {
-        fprintf(stderr, "[Splitter-Merger] Invalid arguments: rangeEnd must be an integer greater than or equal to rangeStart.\n");
+    int firstSearcher = (int) strtol(argv[3], &strtolEndptr, 10);
+    if (*strtolEndptr != '\0' || firstSearcher < 0) {
+        fprintf(stderr, "[Splitter-Merger] Invalid arguments: firstSearcher must be a non-negative integer.\n");
         return EC_ARG;
     }
-    char *pattern = argv[4];
-    int height = (int) strtol(argv[5], &strtolEndptr, 10);
+    int lastSearcher = (int) strtol(argv[4], &strtolEndptr, 10);
+    if (*strtolEndptr != '\0' || lastSearcher <= firstSearcher) {
+        fprintf(stderr, "[Splitter-Merger] Invalid arguments: lastSearcher must be an integer greater than firstSearcher.\n");
+        return EC_ARG;
+    }
+    char *pattern = argv[5];
+    int height = (int) strtol(argv[6], &strtolEndptr, 10);
     if (*strtolEndptr != '\0' || height < 1 || height > 5) {
         fprintf(stderr, "[Splitter-Merger] Invalid arguments: Height must be an integer between 1 and 5 (inclusive).\n");
         return EC_ARG;
     }
-    bool skew = (bool) strtol(argv[6], &strtolEndptr, 10);
+    bool skew = (bool) strtol(argv[7], &strtolEndptr, 10);
     if (*strtolEndptr != '\0') {
         fprintf(stderr, "[Splitter-Merger] Invalid arguments: Skew can only be 0 or 1.\n");
         return EC_ARG;
     }
-    pid_t rootPid = (pid_t) strtol(argv[7], &strtolEndptr, 10);
+    pid_t rootPid = (pid_t) strtol(argv[8], &strtolEndptr, 10);
     if (*strtolEndptr != '\0' || rootPid < 2) {
         fprintf(stderr, "[Splitter-Merger] Invalid arguments: invalid Root pid.\n");
         return EC_ARG;
@@ -52,9 +58,6 @@ int main(int argc, char *argv[]) {
 
     int fd1[2];
     pipe(fd1);
-    long rangeSplit = (rangeStart + rangeEnd) / 2;         // TODO: assuming skew == 0
-    char rangeStartStr[MAX_NUM_STRING_SIZE];
-    char rangeEndStr[MAX_NUM_STRING_SIZE];
     char rootPidStr[MAX_NUM_STRING_SIZE];
     sprintf(rootPidStr, "%d", rootPid);
     pid_t pid1 = fork();
@@ -66,18 +69,36 @@ int main(int argc, char *argv[]) {
         dup2(fd1[WRITE_END], STDOUT_FILENO);
         close(fd1[READ_END]);
         close(fd1[WRITE_END]);
-        sprintf(rangeStartStr, "%ld", rangeStart);
-        sprintf(rangeEndStr, "%ld", rangeSplit);
-        if (height == 1) {
+        if (height == 1) {      // child will be a Searcher
+            struct stat st;
+            if (stat(datafile, &st) != 0) {
+                perror("[Splitter-Merger] stat");
+                return EC_FILE;
+            }
+            long recordsNum = st.st_size / sizeof(Record);
+            long rangeStart, rangeEnd;
+            if (! skew) {
+                rangeStart = (long) (firstSearcher * (recordsNum / (double) searchersNum));
+                rangeEnd = (long) ((firstSearcher + 1) * (recordsNum / (double) searchersNum) - 1);
+            } else {
+                rangeStart = (long) (recordsNum * (sumToN(firstSearcher) / (double) sumToN(searchersNum)));
+                rangeEnd = (long) (recordsNum * (sumToN((firstSearcher + 1)) / (double) sumToN(searchersNum)) - 1);
+            }
+            char rangeStartStr[MAX_NUM_STRING_SIZE];
+            sprintf(rangeStartStr, "%ld", rangeStart);
+            char rangeEndStr[MAX_NUM_STRING_SIZE];
+            sprintf(rangeEndStr, "%ld", rangeEnd);
             execlp("./searcher", "searcher", datafile, rangeStartStr,
                    rangeEndStr, pattern, rootPidStr, (char *) NULL);
-        } else {
-            char heightStr[2];
+        } else {        // child will be another Splitter-Merger
+            char lastSearcherStr[MAX_NUM_STRING_SIZE];
+            sprintf(lastSearcherStr, "%d", (firstSearcher + lastSearcher) / 2);
+            char heightStr[MAX_NUM_STRING_SIZE];
             sprintf(heightStr, "%d", height - 1);
             char skewStr[2];
             sprintf(skewStr, "%d", skew);
-            execl("./splitter_merger", "splitter_merger", datafile, rangeStartStr,
-                  rangeEndStr, pattern, heightStr, skewStr, rootPidStr, (char *) NULL);
+            execl("./splitter_merger", "splitter_merger", datafile, argv[2], argv[3],
+                lastSearcherStr, pattern, heightStr, skewStr, rootPidStr, (char *) NULL);
         }
         perror("[Splitter-Merger] execl");
         return EC_EXEC;
@@ -95,18 +116,37 @@ int main(int argc, char *argv[]) {
         dup2(fd2[WRITE_END], STDOUT_FILENO);
         close(fd2[READ_END]);
         close(fd2[WRITE_END]);
-        sprintf(rangeStartStr, "%ld", rangeSplit + 1);
-        sprintf(rangeEndStr, "%ld", rangeEnd);
-        if (height == 1) {
+        if (height == 1) {      // child will be a Searcher
+            struct stat st;
+            if (stat(datafile, &st) != 0) {
+                perror("[Splitter-Merger] stat");
+                return EC_FILE;
+            }
+            long recordsNum = st.st_size / sizeof(Record);
+            long rangeStart, rangeEnd;
+            if (! skew) {
+                rangeStart = (long) (lastSearcher * (recordsNum / (double) searchersNum));
+                rangeEnd = (long) ((lastSearcher + 1) * (recordsNum / (double) searchersNum) - 1);
+            } else {
+                rangeStart = (long) (recordsNum * (sumToN(lastSearcher) / (double) sumToN(searchersNum)));
+                rangeEnd = min( (long) (recordsNum * (sumToN(lastSearcher + 1) / (double) sumToN(searchersNum)) - 1),
+                       recordsNum - 1);     // last Searcher should receive up until the last record
+            }
+            char rangeStartStr[MAX_NUM_STRING_SIZE];
+            sprintf(rangeStartStr, "%ld", rangeStart);
+            char rangeEndStr[MAX_NUM_STRING_SIZE];
+            sprintf(rangeEndStr, "%ld", rangeEnd);
             execl("./searcher", "searcher", datafile, rangeStartStr,
                    rangeEndStr, pattern, rootPidStr, (char *) NULL);
-        } else {
-            char heightStr[2];
+        } else {        // child will be another Splitter-Merger
+            char firstSearcherStr[MAX_NUM_STRING_SIZE];
+            sprintf(firstSearcherStr, "%d", (firstSearcher + lastSearcher) / 2 + 1);
+            char heightStr[MAX_NUM_STRING_SIZE];
             sprintf(heightStr, "%d", height - 1);
             char skewStr[2];
             sprintf(skewStr, "%d", skew);
-            execl("./splitter_merger", "splitter_merger", datafile, rangeStartStr,
-                  rangeEndStr, pattern, heightStr, skewStr, rootPidStr, (char *) NULL);
+            execl("./splitter_merger", "splitter_merger", datafile, argv[2], firstSearcherStr,
+                  argv[4], pattern, heightStr, skewStr, rootPidStr, (char *) NULL);
         }
         perror("[Splitter-Merger] execl");
         return EC_EXEC;

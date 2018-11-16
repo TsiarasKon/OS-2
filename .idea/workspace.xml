@@ -15,12 +15,11 @@
   <component name="ChangeListManager">
     <list default="true" id="de60402b-91a9-49d4-874b-f225f6c008ad" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/headers/record.h" beforeDir="false" afterPath="$PROJECT_DIR$/headers/record.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/headers/util.h" beforeDir="false" afterPath="$PROJECT_DIR$/headers/util.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/record.c" beforeDir="false" afterPath="$PROJECT_DIR$/record.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/root.c" beforeDir="false" afterPath="$PROJECT_DIR$/root.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/searcher.c" beforeDir="false" afterPath="$PROJECT_DIR$/searcher.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/splitter_merger.c" beforeDir="false" afterPath="$PROJECT_DIR$/splitter_merger.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/statistics.c" beforeDir="false" afterPath="$PROJECT_DIR$/statistics.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/util.c" beforeDir="false" afterPath="$PROJECT_DIR$/util.c" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
@@ -70,9 +69,9 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="Makefile" value="480" />
-          <entry key="c" value="11300" />
-          <entry key="h" value="1421" />
-          <entry key="txt" value="1430" />
+          <entry key="c" value="13436" />
+          <entry key="h" value="1528" />
+          <entry key="txt" value="1546" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
@@ -80,30 +79,30 @@
           <entry key="CMakeLists.txt" value="168" />
           <entry key="Doxygen file" value="1" />
           <entry key="Makefile" value="383" />
-          <entry key="ObjectiveC" value="12720" />
-          <entry key="PLAIN_TEXT" value="1359" />
+          <entry key="ObjectiveC" value="14963" />
+          <entry key="PLAIN_TEXT" value="1475" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.4099379">
+    <splitter split-orientation="horizontal" split-proportion="0.3857143">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/headers/util.h">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="442">
-                  <caret line="26" column="56" selection-start-line="26" selection-start-column="56" selection-end-line="26" selection-end-column="56" />
+                <state relative-caret-position="459">
+                  <caret line="27" column="18" lean-forward="true" selection-start-line="27" selection-start-column="18" selection-end-line="27" selection-end-column="18" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/searcher.c">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="952">
-                  <caret line="79" column="27" selection-start-line="79" selection-start-column="27" selection-end-line="79" selection-end-column="27" />
+                <state relative-caret-position="442">
+                  <caret line="41" column="57" selection-start-line="41" selection-start-column="57" selection-end-line="41" selection-end-column="57" />
                   <folding>
                     <element signature="e#20#39#0" expanded="true" />
                   </folding>
@@ -114,17 +113,17 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/headers/statistics.h">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="340">
-                  <caret line="20" column="21" selection-start-line="20" selection-start-column="21" selection-end-line="20" selection-end-column="21" />
+                <state relative-caret-position="51">
+                  <caret line="3" column="16" lean-forward="true" selection-start-line="3" selection-start-column="16" selection-end-line="3" selection-end-column="16" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/root.c">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-323">
-                  <caret line="147" column="46" lean-forward="true" selection-start-line="147" selection-start-column="46" selection-end-line="147" selection-end-column="46" />
+                <state relative-caret-position="357">
+                  <caret line="78" column="57" selection-start-line="78" selection-start-column="57" selection-end-line="78" selection-end-column="57" />
                   <folding>
                     <element signature="e#20#39#0" expanded="true" />
                   </folding>
@@ -139,8 +138,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/splitter_merger.c">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1530">
-                  <caret line="181" lean-forward="true" selection-start-line="181" selection-end-line="181" />
+                <state relative-caret-position="388">
+                  <caret line="133" column="13" lean-forward="true" selection-start-line="133" selection-start-column="13" selection-end-line="133" selection-end-column="13" />
                   <folding>
                     <element signature="e#20#37#0" expanded="true" />
                   </folding>
@@ -151,8 +150,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/util.c">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="323">
-                  <caret line="19" column="46" lean-forward="true" selection-start-line="19" selection-start-column="46" selection-end-line="19" selection-end-column="46" />
+                <state relative-caret-position="507">
+                  <caret line="33" column="26" lean-forward="true" selection-start-line="33" selection-start-column="26" selection-end-line="33" selection-end-column="26" />
                   <folding>
                     <element signature="e#0#25#0" expanded="true" />
                   </folding>
@@ -163,8 +162,8 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/statistics.c">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="306">
-                  <caret line="66" column="66" selection-start-line="66" selection-start-column="66" selection-end-line="66" selection-end-column="66" />
+                <state relative-caret-position="14">
+                  <caret line="75" column="81" selection-start-line="75" selection-start-column="81" selection-end-line="75" selection-end-column="81" />
                   <folding>
                     <element signature="e#0#31#0" expanded="true" />
                   </folding>
@@ -175,8 +174,11 @@
           <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/record.c">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="34">
-                  <caret line="2" selection-start-line="2" selection-end-line="2" selection-end-column="19" />
+                <state relative-caret-position="133">
+                  <caret line="14" column="37" selection-start-line="14" selection-start-column="37" selection-end-line="14" selection-end-column="37" />
+                  <folding>
+                    <element signature="e#0#27#0" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -191,11 +193,12 @@
       <find>print</find>
       <find>wri</find>
       <find>CPU</find>
-      <find>TODO</find>
       <find>util</find>
       <find>stdlib</find>
       <find>read(</find>
       <find>write(</find>
+      <find>TODO</find>
+      <find>rangeSp</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -213,16 +216,16 @@
         <option value="$PROJECT_DIR$/statistics.h" />
         <option value="$PROJECT_DIR$/cmake-build-debug/TESTnums.txt" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
-        <option value="$PROJECT_DIR$/searcher.c" />
-        <option value="$PROJECT_DIR$/statistics.c" />
-        <option value="$PROJECT_DIR$/headers/statistics.h" />
         <option value="$PROJECT_DIR$/record.c" />
         <option value="$PROJECT_DIR$/headers/record.h" />
         <option value="$PROJECT_DIR$/Makefile" />
-        <option value="$PROJECT_DIR$/splitter_merger.c" />
+        <option value="$PROJECT_DIR$/headers/statistics.h" />
+        <option value="$PROJECT_DIR$/statistics.c" />
+        <option value="$PROJECT_DIR$/root.c" />
         <option value="$PROJECT_DIR$/headers/util.h" />
         <option value="$PROJECT_DIR$/util.c" />
-        <option value="$PROJECT_DIR$/root.c" />
+        <option value="$PROJECT_DIR$/splitter_merger.c" />
+        <option value="$PROJECT_DIR$/searcher.c" />
       </list>
     </option>
   </component>
@@ -313,13 +316,13 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.Root h5">
-    <configuration name="Root HUGE" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-h 5 -d ../inputs/Records1000000.bin -p Athens" PASS_PARENT_ENVS_2="true" PROJECT_NAME="OS_2" TARGET_NAME="Root" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="OS_2" RUN_TARGET_NAME="Root">
+  <component name="RunManager" selected="Application.Root h1">
+    <configuration name="Root HUGE" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-h 5 -d ../inputs/Records1000000.bin -p ll" PASS_PARENT_ENVS_2="true" PROJECT_NAME="OS_2" TARGET_NAME="Root" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="OS_2" RUN_TARGET_NAME="Root">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Root h1" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-h 1 -d ../inputs/Records100.bin -p nville" PASS_PARENT_ENVS_2="true" PROJECT_NAME="OS_2" TARGET_NAME="Root" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="OS_2" RUN_TARGET_NAME="Root">
+    <configuration name="Root h1" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-h 3 -d ../inputs/Records100.bin -p ville -s" PASS_PARENT_ENVS_2="true" PROJECT_NAME="OS_2" TARGET_NAME="Root" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="OS_2" RUN_TARGET_NAME="Root">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -329,7 +332,7 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Root h5" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-h 5 -d ../inputs/Records10000.bin -p Athens" PASS_PARENT_ENVS_2="true" PROJECT_NAME="OS_2" TARGET_NAME="Root" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="OS_2" RUN_TARGET_NAME="Root">
+    <configuration name="Root h5" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-h 5 -d ../inputs/Records100000.bin -p Athens" PASS_PARENT_ENVS_2="true" PROJECT_NAME="OS_2" TARGET_NAME="Root" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="OS_2" RUN_TARGET_NAME="Root">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -354,13 +357,7 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="h3 -s" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-p heh -s -h 3 -d ../myInput128.bin" PASS_PARENT_ENVS_2="true" PROJECT_NAME="OS_2" TARGET_NAME="Root" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="OS_2" RUN_TARGET_NAME="Root">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <list>
-      <item itemvalue="Application.h3 -s" />
       <item itemvalue="Application.Searcher10^2" />
       <item itemvalue="Application.Searcher10^4" />
       <item itemvalue="Application.Splitter-Merger h1" />
@@ -394,7 +391,7 @@
       <workItem from="1541785585297" duration="1400000" />
       <workItem from="1542135773812" duration="2830000" />
       <workItem from="1542206783374" duration="12998000" />
-      <workItem from="1542301374135" duration="4839000" />
+      <workItem from="1542301374135" duration="20940000" />
     </task>
     <task id="LOCAL-00001" summary="Command line argument checking">
       <created>1541170086907</created>
@@ -515,14 +512,28 @@
       <option name="project" value="LOCAL" />
       <updated>1542219238628</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Improved reading from pipes">
+      <created>1542306599225</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1542306599225</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Statistics Pretty Printing&#10;&#10;+ some ints converted to long for sanity reasons">
+      <created>1542312569687</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1542312569687</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="99902000" />
+    <option name="totallyTimeSpent" value="116003000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.42770168" visible="true" weight="0.14179105" />
@@ -573,7 +584,9 @@
     <MESSAGE value="Sorter&#10;&#10;Implemented as a new process that reads the records from its stdin&#10;(a pipe's read end) and prints them sorted to stdout." />
     <MESSAGE value="Sorter&#10;&#10;Implemented as a new child-process that reads the records from its stdin&#10;(a pipe's read end) and prints them sorted to stdout." />
     <MESSAGE value="Updated time metric&#10;&#10;* Now using actual time instead of CPU time&#10;* Also fixed &quot;Average time&quot; statistic" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated time metric&#10;&#10;* Now using actual time instead of CPU time&#10;* Also fixed &quot;Average time&quot; statistic" />
+    <MESSAGE value="Improved reading from pipes" />
+    <MESSAGE value="Statistics Pretty Printing&#10;&#10;+ some ints converted to long for sanity reasons" />
+    <option name="LAST_COMMIT_MESSAGE" value="Statistics Pretty Printing&#10;&#10;+ some ints converted to long for sanity reasons" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/cmake-build-debug/Makefile">
@@ -626,73 +639,76 @@
         <state relative-caret-position="-3376" />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/headers/statistics.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="16" lean-forward="true" selection-start-line="3" selection-start-column="16" selection-end-line="3" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/root.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="78" column="57" selection-start-line="78" selection-start-column="57" selection-end-line="78" selection-end-column="57" />
+          <folding>
+            <element signature="e#20#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/statistics.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="66" column="66" selection-start-line="66" selection-start-column="66" selection-end-line="66" selection-end-column="66" />
+        <state relative-caret-position="14">
+          <caret line="75" column="81" selection-start-line="75" selection-start-column="81" selection-end-line="75" selection-end-column="81" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/headers/statistics.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="21" selection-start-line="20" selection-start-column="21" selection-end-line="20" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/record.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" selection-start-line="2" selection-end-line="2" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/searcher.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="952">
-          <caret line="79" column="27" selection-start-line="79" selection-start-column="27" selection-end-line="79" selection-end-column="27" />
+        <state relative-caret-position="133">
+          <caret line="14" column="37" selection-start-line="14" selection-start-column="37" selection-end-line="14" selection-end-column="37" />
           <folding>
-            <element signature="e#20#39#0" expanded="true" />
+            <element signature="e#0#27#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/headers/util.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="442">
-          <caret line="26" column="56" selection-start-line="26" selection-start-column="56" selection-end-line="26" selection-end-column="56" />
+        <state relative-caret-position="459">
+          <caret line="27" column="18" lean-forward="true" selection-start-line="27" selection-start-column="18" selection-end-line="27" selection-end-column="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/util.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="46" lean-forward="true" selection-start-line="19" selection-start-column="46" selection-end-line="19" selection-end-column="46" />
+        <state relative-caret-position="507">
+          <caret line="33" column="26" lean-forward="true" selection-start-line="33" selection-start-column="26" selection-end-line="33" selection-end-column="26" />
           <folding>
             <element signature="e#0#25#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/root.c">
+    <entry file="file://$PROJECT_DIR$/splitter_merger.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-323">
-          <caret line="147" column="46" lean-forward="true" selection-start-line="147" selection-start-column="46" selection-end-line="147" selection-end-column="46" />
+        <state relative-caret-position="388">
+          <caret line="133" column="13" lean-forward="true" selection-start-line="133" selection-start-column="13" selection-end-line="133" selection-end-column="13" />
           <folding>
-            <element signature="e#20#39#0" expanded="true" />
+            <element signature="e#20#37#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/splitter_merger.c">
+    <entry file="file://$PROJECT_DIR$/searcher.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1530">
-          <caret line="181" lean-forward="true" selection-start-line="181" selection-end-line="181" />
+        <state relative-caret-position="442">
+          <caret line="41" column="57" selection-start-line="41" selection-start-column="57" selection-end-line="41" selection-end-column="57" />
           <folding>
-            <element signature="e#20#37#0" expanded="true" />
+            <element signature="e#20#39#0" expanded="true" />
           </folding>
         </state>
       </provider>

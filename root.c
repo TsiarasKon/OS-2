@@ -76,11 +76,12 @@ int main(int argc, char *argv[]) {
         fprintf(stderr, "[Root] Invalid Datafile format: Datafile's size is not a multiple of Record's size.");
         return EC_INVALID;
     }
+    int searchersNum = (1 << height);      // == 2^height
 
     struct sigaction act;
     memset(&act, 0, sizeof(act));
     act.sa_handler = sigusr2Handler;
-    act.sa_flags = SA_RESTART;      // so that read()s won't be interrupted
+    act.sa_flags = SA_RESTART;      // so that system calls won't be interrupted
     if ( sigaction(SIGUSR2, &act, NULL) < 0 ) {
         perror("[Root] sigaction");
         return EC_SIG;
@@ -96,18 +97,20 @@ int main(int argc, char *argv[]) {
         dup2(smfd[WRITE_END], STDOUT_FILENO);
         close(smfd[READ_END]);
         close(smfd[WRITE_END]);
-        char rangeStartStr[MAX_NUM_STRING_SIZE];
-        sprintf(rangeStartStr, "%d", 0);
-        char rangeEndStr[MAX_NUM_STRING_SIZE];
-        sprintf(rangeEndStr, "%ld", recordsNum - 1);
+        char searchersNumStr[MAX_NUM_STRING_SIZE];
+        sprintf(searchersNumStr, "%d", searchersNum);
+        char firstSearcherStr[2];
+        sprintf(firstSearcherStr, "%d", 0);
+        char lastSearcherStr[MAX_NUM_STRING_SIZE];
+        sprintf(lastSearcherStr, "%d", searchersNum - 1);
         char rootPidStr[MAX_NUM_STRING_SIZE];
         sprintf(rootPidStr, "%d", getppid());
-        char heightStr[2];
+        char heightStr[MAX_NUM_STRING_SIZE];
         sprintf(heightStr, "%d", height);
         char skewStr[2];
         sprintf(skewStr, "%d", skew);
-        execl("./splitter_merger", "splitter_merger", datafile, rangeStartStr,
-              rangeEndStr, pattern, heightStr, skewStr, rootPidStr, (char *) NULL);
+        execl("./splitter_merger", "splitter_merger", datafile, searchersNumStr, firstSearcherStr,
+              lastSearcherStr, pattern, heightStr, skewStr, rootPidStr, (char *) NULL);
         // this code will run only if exec fails:
         perror("[Root] execl");
         return EC_EXEC;

@@ -26,3 +26,11 @@ long long getCurrentTime(void) {
     gettimeofday(&tv, NULL);
     return (((long long) tv.tv_sec) * 1000) + (tv.tv_usec / 1000);
 }
+
+int sumToN(int n) {      // known formula for 1 + 2 + 3 + ... + n
+    return (n * (n + 1)) / 2;
+}
+
+long min(long a, long b) {
+    return (a > b) ? b : a;
+}

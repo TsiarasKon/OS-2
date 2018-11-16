@@ -23,7 +23,9 @@ enum ErrorCodes {
     EC_UNKNOWN   // An unexpected error
 };
 
-long long getCurrentTime(void);
 bool readFromPipe(int fd, void *buffer, unsigned int bufSize);
+long long getCurrentTime(void);
+int sumToN(int n);
+long min(long a, long b);
 
 #endif
