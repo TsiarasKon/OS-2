@@ -71,12 +71,12 @@ int main(int argc, char *argv[]) {
     }
     fclose(datafp);
 
-    // Write stats:
+    // Write Searcher's statistics to stdout:
     stats.searcherTime = (getCurrentTime() - startTime) / 1000.0;       // in seconds
     nextStructIndicator = 1;
     fwrite(&nextStructIndicator, sizeof(int), 1, stdout);
     fwrite(&stats, sizeof(SearcherStats), 1, stdout);
 
-    kill(rootPid, SIGUSR2);
+    kill(rootPid, SIGUSR2);         // signal Root of Searcher's completion
     return EC_OK;
 }

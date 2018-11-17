@@ -78,6 +78,7 @@ int main(int argc, char *argv[]) {
     }
     int searchersNum = (1 << height);      // == 2^height
 
+    // setup signal handler to catch Searchers' SIGUSR2 signals
     struct sigaction act;
     memset(&act, 0, sizeof(act));
     act.sa_handler = sigusr2Handler;
@@ -128,6 +129,9 @@ int main(int argc, char *argv[]) {
     Record currRecord;
     SMStats completeSMStats;
     bool smDone = false;
+    /* While root Splitter-Merger is still writing Records read an int:
+     * if 0 then also read a Record, add it to recordList and continue looping;
+     * if 2 then read Splitter-Merger's stats and break the loop; */
     while (!smDone) {
         if (! readFromPipe(smfd[READ_END], &nextStructIndicator, sizeof(int))) {
             perror("[Root] Error reading from pipe");
@@ -158,7 +162,7 @@ int main(int argc, char *argv[]) {
             return EC_INVALID;
         }
     }
-    wait(NULL);      // wait for "root" Spiltter-Merger to complete
+    wait(NULL);      // wait for root Spiltter-Merger to complete
 
     long long sorterStartTime = getCurrentTime();
     double sorterTime = -1;
@@ -190,6 +194,7 @@ int main(int argc, char *argv[]) {
             deleteRecordList(&recordList);
             return EC_EXEC;
         }
+        // write all the Records in reocrdList as strings to the pipe
         FILE* sorterfp = fdopen(sorterfd[WRITE_END], "w");
         printRecordList(sorterfp, recordList);
         fclose(sorterfp);

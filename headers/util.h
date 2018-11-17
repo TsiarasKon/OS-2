@@ -10,6 +10,9 @@
 
 #include <stdbool.h>
 
+// BONUS feature: ignore case when searching pattern in Records
+#define IGNORE_CASE false
+
 enum ErrorCodes {
     EC_OK,       // Success
     EC_ARG,      // Invalid command line arguments

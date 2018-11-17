@@ -77,10 +77,10 @@ int main(int argc, char *argv[]) {
             }
             long recordsNum = st.st_size / sizeof(Record);
             long rangeStart, rangeEnd;
-            if (! skew) {
+            if (! skew) {       // as per exercise description, each worker gets k/2^h
                 rangeStart = (long) (firstSearcher * (recordsNum / (double) searchersNum));
                 rangeEnd = (long) ((firstSearcher + 1) * (recordsNum / (double) searchersNum) - 1);
-            } else {
+            } else {            // if skew was specified, each worker gets k*i/sumToN(2^h)
                 rangeStart = (long) (recordsNum * (sumToN(firstSearcher) / (double) sumToN(searchersNum)));
                 rangeEnd = (long) (recordsNum * (sumToN((firstSearcher + 1)) / (double) sumToN(searchersNum)) - 1);
             }
@@ -88,7 +88,7 @@ int main(int argc, char *argv[]) {
             sprintf(rangeStartStr, "%ld", rangeStart);
             char rangeEndStr[MAX_NUM_STRING_SIZE];
             sprintf(rangeEndStr, "%ld", rangeEnd);
-            execlp("./searcher", "searcher", datafile, rangeStartStr,
+            execl("./searcher", "searcher", datafile, rangeStartStr,
                    rangeEndStr, pattern, rootPidStr, (char *) NULL);
         } else {        // child will be another Splitter-Merger
             char lastSearcherStr[MAX_NUM_STRING_SIZE];
@@ -130,7 +130,7 @@ int main(int argc, char *argv[]) {
             } else {
                 rangeStart = (long) (recordsNum * (sumToN(lastSearcher) / (double) sumToN(searchersNum)));
                 rangeEnd = min( (long) (recordsNum * (sumToN(lastSearcher + 1) / (double) sumToN(searchersNum)) - 1),
-                       recordsNum - 1);     // last Searcher should receive up until the last record
+                       recordsNum - 1);     // last Searcher should receive remaining Records until the end
             }
             char rangeStartStr[MAX_NUM_STRING_SIZE];
             sprintf(rangeStartStr, "%ld", rangeStart);
@@ -164,12 +164,19 @@ int main(int argc, char *argv[]) {
     Record currRecord;
     SearcherStats searcherStats[2];
     SMStats smStats[2];
+    /* poll() both children's pipes while they are still sending Records
+     * If a pipe has data to read, read an int an then:
+     * if 0 then also read a Record, write it as is to stdout and continue;
+     * if 1 (can only be received if child is Searcher) then also read
+     *      its Stats and mark it as completed;
+     * if 2 (can only be received if children is Splitter-Merger) then also
+     *      read its Stats and mark it as completed; */
     while (!child_completed[0] || !child_completed[1]) {
         if (poll(pollfd, (nfds_t) 2, -1) < 0) {
             perror("[Splitter-Merger] poll");
             return EC_PIPE;
         }
-        for (int i = 0; i < 2; i++) {       // poll both children
+        for (int i = 0; i < 2; i++) {
             if (pollfd[i].revents & POLLIN && !child_completed[i]) {       // we can read from child i
                 if (! readFromPipe(pollfd[i].fd, &nextStructIndicator, sizeof(int))) {
                     perror("[Splitter-Merger] Error reading from pipe");
@@ -202,8 +209,12 @@ int main(int argc, char *argv[]) {
             }
         }
     }
+    close(fd1[READ_END]);
+    close(fd2[READ_END]);
 
     double selfTime = (getCurrentTime() - startTime) / 1000.0;       // in seconds
+    /* Regardless of what its children were, combine their Stats
+     * in a single new struct and write it to stdout */
     SMStats *currSMStats;
     if (height == 1) {
         currSMStats = combineSearcherStats(searcherStats[0], searcherStats[1], selfTime);
@@ -220,8 +231,6 @@ int main(int argc, char *argv[]) {
     free(currSMStats);
     fflush(stdout);
 
-    close(fd1[READ_END]);
-    close(fd2[READ_END]);
     wait(NULL);
     wait(NULL);
     return EC_OK;

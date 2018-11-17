@@ -1,3 +1,4 @@
+#define _GNU_SOURCE
 #include "headers/record.h"
 
 #include <stdlib.h>
@@ -7,23 +8,29 @@
 #include "headers/util.h"
 
 bool searchRecord(Record r, char *pattern) {
-    if ( strstr(r.fisrtName, pattern) || strstr(r.lastName, pattern) ||
-            strstr(r.street, pattern) || strstr(r.city, pattern) ||
-            strstr(r.zipCode, pattern) )
+    /* Will return true if pattern is a substring of any of the record's fields
+     * using strstr() [or strcasestr() if IGNORE_CASE is defined as true] */
+    char *(*substrFunc)(const char *, const char *);
+    substrFunc = (IGNORE_CASE) ? strcasestr : strstr;
+    if ( substrFunc(r.fisrtName, pattern) || substrFunc(r.lastName, pattern) ||
+            substrFunc(r.street, pattern) || substrFunc(r.city, pattern) ||
+            substrFunc(r.zipCode, pattern) )
         return true;
-    // Checking numeric fields as well:
+    // Checking numeric fields as well by treating them as strings:
     char numStr[MAX_NUM_STRING_SIZE];
     sprintf(numStr, "%ld", r.am);
-    if ( strstr(numStr, pattern) ) return true;
+    if ( substrFunc(numStr, pattern) ) return true;
     sprintf(numStr, "%d", r.streetNum);
-    if ( strstr(numStr, pattern) ) return true;
+    if ( substrFunc(numStr, pattern) ) return true;
     sprintf(numStr, "%f", r.salary);
-    if ( strstr(numStr, pattern) ) return true;
+    if ( substrFunc(numStr, pattern) ) return true;
     return false;
 }
 
 void printRecord(FILE *fp, Record r) {
     if (fp == NULL) fp = stdout;
+    /* the following length specifiers in fprintf() are admittedly fitted to the
+     * given inputs. Results may look less pretty for completely different inputs. */
     fprintf(fp, "%10ld | %15s | %18s | %15s | %6d | %18s | %7s | %9.2f\n", r.am,
             r.fisrtName, r.lastName, r.street, r.streetNum, r.city, r.zipCode, r.salary);
     /* fflush() is needed because even stdout is not automatically fflush'd on

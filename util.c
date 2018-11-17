@@ -27,7 +27,7 @@ long long getCurrentTime(void) {
     return (((long long) tv.tv_sec) * 1000) + (tv.tv_usec / 1000);
 }
 
-int sumToN(int n) {      // known formula for 1 + 2 + 3 + ... + n
+int sumToN(int n) {      // known math formula for 1 + 2 + 3 + ... + n
     return (n * (n + 1)) / 2;
 }
 
