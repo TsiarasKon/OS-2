@@ -16,7 +16,8 @@ typedef struct {
 } Record;
 
 bool searchRecord(Record r, char *pattern);
-void printRecord(FILE *fp, Record r);
+void prettyPrintRecord(FILE *fp, Record r);
+void simplePrintRecord(FILE *fp, Record r);
 
 /* Record List definitions and functions declarations: */
 

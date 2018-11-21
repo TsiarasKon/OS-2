@@ -56,6 +56,7 @@ int main(int argc, char *argv[]) {
     fseek(datafp, rangeStart * sizeof(Record), SEEK_SET);       // move file position to rangeStart Record
 
     SearcherStats stats;
+    stats.recordsSearched = rangeEnd - rangeStart + 1;
     stats.recordsMatched = 0;
     int nextStructIndicator = 0;        // 0 for Record, 1 for Statistics
     Record currRecord;

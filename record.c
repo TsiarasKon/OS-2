@@ -27,7 +27,7 @@ bool searchRecord(Record r, char *pattern) {
     return false;
 }
 
-void printRecord(FILE *fp, Record r) {
+void prettyPrintRecord(FILE *fp, Record r) {
     if (fp == NULL) fp = stdout;
     /* the following length specifiers in fprintf() are admittedly fitted to the
      * given inputs. Results may look less pretty for completely different inputs. */
@@ -36,6 +36,13 @@ void printRecord(FILE *fp, Record r) {
     /* fflush() is needed because even stdout is not automatically fflush'd on
      * newlines when redirected as we're doing in this program and we would
      * otherwise risk overflowing pipes! */
+    fflush(fp);
+}
+
+void simplePrintRecord(FILE *fp, Record r) {
+    if (fp == NULL) fp = stdout;
+    fprintf(fp, "%ld %s %s %s %d %s %s %-9.2f\n", r.am, r.fisrtName, r.lastName,
+            r.street, r.streetNum, r.city, r.zipCode, r.salary);
     fflush(fp);
 }
 
@@ -87,8 +94,10 @@ void printRecordList(FILE *fp, RecordList *rList) {
     if (rList == NULL) return;
     if (fp == NULL) fp = stdout;
     RecordListNode *currentR = rList->first;
+    void (*printRecordFunc)(FILE *, Record);
+    printRecordFunc = (PRETTY_PRINT_RESULTS) ? prettyPrintRecord : simplePrintRecord;
     while (currentR != NULL) {
-        printRecord(fp, *(currentR->record));
+        printRecordFunc(fp, *(currentR->record));
         currentR = currentR->next;
     }
 }

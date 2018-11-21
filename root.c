@@ -170,10 +170,12 @@ int main(int argc, char *argv[]) {
         printf("No records matched!\n");
     } else if (recordList->first == recordList->last) {     // only one result - no reason to sort
         printf("Matching Records:\n");
-        prettyPrintResultSepLine();
-        prettyPrintResultHeader();
+        if (PRETTY_PRINT_RESULTS) {
+            prettyPrintResultSepLine();
+            prettyPrintResultHeader();
+        }
         printRecordList(stdout, recordList);
-        prettyPrintResultSepLine();
+        if (PRETTY_PRINT_RESULTS) prettyPrintResultSepLine();
     } else {
         int sorterfd[2];
         pipe(sorterfd);
@@ -187,8 +189,10 @@ int main(int argc, char *argv[]) {
             close(sorterfd[READ_END]);
             close(sorterfd[WRITE_END]);
             printf("Matching Records:\n");
-            prettyPrintResultSepLine();
-            prettyPrintResultHeader();
+            if (PRETTY_PRINT_RESULTS) {
+                prettyPrintResultSepLine();
+                prettyPrintResultHeader();
+            }
             execlp("/usr/bin/sort", "sort", "-n", (char *) NULL);
             perror("[Root] execlp");
             deleteRecordList(&recordList);
@@ -199,13 +203,13 @@ int main(int argc, char *argv[]) {
         printRecordList(sorterfp, recordList);
         fclose(sorterfp);
         wait(NULL);
-        prettyPrintResultSepLine();
+        if (PRETTY_PRINT_RESULTS) prettyPrintResultSepLine();
         sorterTime = (getCurrentTime() - sorterStartTime) / 1000.0;
     }
     deleteRecordList(&recordList);
 
     double turnaroundTime = (getCurrentTime() - rootStartTime) / 1000.0;
-    prettyPrintRootStats(completeSMStats, recordsNum, sigusr2Received, sorterTime, turnaroundTime);
+    prettyPrintRootStats(completeSMStats, sigusr2Received, sorterTime, turnaroundTime);
 
     return EC_OK;
 }

@@ -10,6 +10,7 @@
 
 #include <stdbool.h>
 
+#define PRETTY_PRINT_RESULTS false
 // BONUS feature: ignore case when searching pattern in Records
 #define IGNORE_CASE false
 
