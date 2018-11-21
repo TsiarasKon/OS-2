@@ -10,7 +10,7 @@
 
 #include <stdbool.h>
 
-#define PRETTY_PRINT_RESULTS false
+#define PRETTY_PRINT_RESULTS true
 // BONUS feature: ignore case when searching pattern in Records
 #define IGNORE_CASE false
 
@@ -27,7 +27,8 @@ enum ErrorCodes {
     EC_UNKNOWN   // An unexpected error
 };
 
-bool readFromPipe(int fd, void *buffer, unsigned int bufSize);
+bool writeToFd(int fd, void *buffer, unsigned int bufSize);
+bool readFromFd(int fd, void *buffer, unsigned int bufSize);
 long long getCurrentTime(void);
 int sumToN(int n);
 long min(long a, long b);

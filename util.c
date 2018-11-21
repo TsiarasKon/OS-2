@@ -4,15 +4,29 @@
 #include <sys/time.h>
 #include <errno.h>
 
-bool readFromPipe(int fd, void *buffer, unsigned int bufSize) {
+bool writeToFd(int fd, void *buffer, unsigned int bufSize) {
+    size_t totalWritten = 0;
+    ssize_t numWritten;
+    while (true) {
+        numWritten = write(fd, (char *) buffer + totalWritten, bufSize - totalWritten);
+        if (numWritten < 0) {
+            /* Added protection from signals just in case, eventhough
+             * sigaction()'s SA_RESTART flag should be enough.
+             * EINTR: interrupted by a signal before any data was written */
+            if (errno == EINTR) continue;
+            return false;
+        }
+        totalWritten += numWritten;
+        if (totalWritten == bufSize) return true;
+    }
+}
+
+bool readFromFd(int fd, void *buffer, unsigned int bufSize) {
     size_t totalRead = 0;
     ssize_t numRead;
     while (true) {
         numRead = read(fd, (char *) buffer + totalRead, bufSize - totalRead);
         if (numRead < 0) {
-            /* Added protection from signals just in case, eventhough
-             * sigaction()'s SA_RESTART flag should be enough.
-             * EINTR: read() was interrupted by a signal before any data was read */
             if (errno == EINTR) continue;
             return false;
         }

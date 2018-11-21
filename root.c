@@ -133,13 +133,13 @@ int main(int argc, char *argv[]) {
      * if 0 then also read a Record, add it to recordList and continue looping;
      * if 2 then read Splitter-Merger's stats and break the loop; */
     while (!smDone) {
-        if (! readFromPipe(smfd[READ_END], &nextStructIndicator, sizeof(int))) {
+        if (! readFromFd(smfd[READ_END], &nextStructIndicator, sizeof(int)) ) {
             perror("[Root] Error reading from pipe");
             deleteRecordList(&recordList);
             return EC_PIPE;
         }
         if (nextStructIndicator == 0) {     // Next struct is a Record
-            if (! readFromPipe(smfd[READ_END], &currRecord, sizeof(Record))) {
+            if (! readFromFd(smfd[READ_END], &currRecord, sizeof(Record)) ) {
                 perror("[Root] Error reading from pipe");
                 deleteRecordList(&recordList);
                 return EC_PIPE;
@@ -150,7 +150,7 @@ int main(int argc, char *argv[]) {
                 return EC_MEM;
             }
         } else if (nextStructIndicator == 2) {        // Next struct is SMStats
-            if (! readFromPipe(smfd[READ_END], &completeSMStats, sizeof(SMStats))) {
+            if (! readFromFd(smfd[READ_END], &completeSMStats, sizeof(SMStats)) ) {
                 perror("[Root] Error reading from pipe");
                 deleteRecordList(&recordList);
                 return EC_PIPE;

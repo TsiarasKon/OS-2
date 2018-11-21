@@ -177,27 +177,33 @@ int main(int argc, char *argv[]) {
             return EC_PIPE;
         }
         for (int i = 0; i < 2; i++) {
-            if (pollfd[i].revents & POLLIN && !child_completed[i]) {       // we can read from child i
-                if (! readFromPipe(pollfd[i].fd, &nextStructIndicator, sizeof(int))) {
+            if ((pollfd[i].revents & POLLIN) && !child_completed[i]) {       // we can read from child i
+                if (! readFromFd(pollfd[i].fd, &nextStructIndicator, sizeof(int)) ) {
                     perror("[Splitter-Merger] Error reading from pipe");
                     return EC_PIPE;
                 }
                 if (nextStructIndicator == 0) {     // Next struct is a Record
-                    if (! readFromPipe(pollfd[i].fd, &currRecord, sizeof(Record))) {
+                    if (! readFromFd(pollfd[i].fd, &currRecord, sizeof(Record)) ) {
                         perror("[Splitter-Merger] Error reading from pipe");
                         return EC_PIPE;
                     }
-                    fwrite(&nextStructIndicator, sizeof(int), 1, stdout);
-                    fwrite(&currRecord, sizeof(Record), 1, stdout);
+                    if (! writeToFd(STDOUT_FILENO, &nextStructIndicator, sizeof(int)) ) {
+                        perror("[Splitter-Merger] Error writing to stdout");
+                        return EC_PIPE;
+                    }
+                    if (! writeToFd(STDOUT_FILENO, &currRecord, sizeof(Record)) ) {
+                        perror("[Splitter-Merger] Error writing to stdout");
+                        return EC_PIPE;
+                    }
                     fflush(stdout);
                 } else if (nextStructIndicator == 1) {        // Next struct is SearcherStats
-                    if (! readFromPipe(pollfd[i].fd, &searcherStats[i], sizeof(SearcherStats))) {
+                    if (! readFromFd(pollfd[i].fd, &searcherStats[i], sizeof(SearcherStats)) ) {
                         perror("[Splitter-Merger] Error reading from pipe");
                         return EC_PIPE;
                     }
                     child_completed[i] = true;
                 } else if (nextStructIndicator == 2) {        // Next struct is SMStats
-                    if (! readFromPipe(pollfd[i].fd, &smStats[i], sizeof(SMStats))) {
+                    if (! readFromFd(pollfd[i].fd, &smStats[i], sizeof(SMStats)) ) {
                         perror("[Splitter-Merger] Error reading from pipe");
                         return EC_PIPE;
                     }
@@ -226,8 +232,16 @@ int main(int argc, char *argv[]) {
         return EC_MEM;
     }
     nextStructIndicator = 2;
-    fwrite(&nextStructIndicator, sizeof(int), 1, stdout);
-    fwrite(currSMStats, sizeof(SMStats), 1, stdout);
+    if (! writeToFd(STDOUT_FILENO, &nextStructIndicator, sizeof(int)) ) {
+        perror("[Splitter-Merger] Error writing to stdout");
+        free(currSMStats);
+        return EC_PIPE;
+    }
+    if (! writeToFd(STDOUT_FILENO, currSMStats, sizeof(SMStats)) ) {
+        perror("[Splitter-Merger] Error writing to stdout");
+        free(currSMStats);
+        return EC_PIPE;
+    }
     free(currSMStats);
     fflush(stdout);
 

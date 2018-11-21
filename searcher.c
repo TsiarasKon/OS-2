@@ -64,8 +64,16 @@ int main(int argc, char *argv[]) {
         fread(&currRecord, sizeof(Record), 1, datafp);
         if (searchRecord(currRecord, pattern)) {
             // if Record matched Pattern, write it to stdout
-            fwrite(&nextStructIndicator, sizeof(int), 1, stdout);
-            fwrite(&currRecord, sizeof(Record), 1, stdout);
+            if (! writeToFd(STDOUT_FILENO, &nextStructIndicator, sizeof(int)) ) {
+                perror("[Searcher] Error writing to stdout");
+                fclose(datafp);
+                return EC_PIPE;
+            }
+            if (! writeToFd(STDOUT_FILENO, &currRecord, sizeof(Record)) ) {
+                perror("[Searcher] Error writing to stdout");
+                fclose(datafp);
+                return EC_PIPE;
+            }
             fflush(stdout);
             stats.recordsMatched++;
         }
@@ -75,8 +83,15 @@ int main(int argc, char *argv[]) {
     // Write Searcher's statistics to stdout:
     stats.searcherTime = (getCurrentTime() - startTime) / 1000.0;       // in seconds
     nextStructIndicator = 1;
-    fwrite(&nextStructIndicator, sizeof(int), 1, stdout);
-    fwrite(&stats, sizeof(SearcherStats), 1, stdout);
+    if (! writeToFd(STDOUT_FILENO, &nextStructIndicator, sizeof(int)) ) {
+        perror("[Searcher] Error writing to stdout");
+        return EC_PIPE;
+    }
+    if (! writeToFd(STDOUT_FILENO, &stats, sizeof(SearcherStats)) ) {
+        perror("[Searcher] Error writing to stdout");
+        return EC_PIPE;
+    }
+    fflush(stdout);
 
     kill(rootPid, SIGUSR2);         // signal Root of Searcher's completion
     return EC_OK;
