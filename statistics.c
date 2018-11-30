@@ -77,11 +77,11 @@ void prettyPrintRootStats(SMStats smStats, int sigusr2Received, double sorterTim
     printf("---------------------------------------------------\n");
     printf("     Total Records Searched    |  %ld \n", smStats.totalRecordsSearched);
     printf("---------------------------------------------------\n");
+    printf("     Total Records Matched     |  %ld \n", smStats.totalRecordsMatched);
+    printf("---------------------------------------------------\n");
     printf("                               | Min: %ld\n", smStats.minSearcherRecordsSearched);
     printf(" Records Searched per Searcher | Max: %ld\n", smStats.maxSearcherRecordsSearched);
     printf("                               | Avg: %.3f\n", smStats.avgSearcherRecordsSearched);
-    printf("---------------------------------------------------\n");
-    printf("      Total Records Matched    |  %ld \n", smStats.totalRecordsMatched);
     printf("---------------------------------------------------\n");
     printf("                               | Min: %ld\n", smStats.minSearcherRecordsMatched);
     printf("  Records Matched per Searcher | Max: %ld\n", smStats.maxSearcherRecordsMatched);
